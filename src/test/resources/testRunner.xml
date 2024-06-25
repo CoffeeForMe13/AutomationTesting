@@ -13,7 +13,7 @@
         </classes>
     </test>
 
-    <test name="SimpleTest_Conflicts_AltNume">
+    <test name="SimpleTest_Conflict">
         <classes>
             <class name="SimpleTest"/>
         </classes>

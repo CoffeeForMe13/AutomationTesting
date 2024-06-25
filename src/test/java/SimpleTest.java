@@ -17,8 +17,15 @@ public class SimpleTest extends BaseTest {
         SimpleActions simpleActions = new SimpleActions(driver);
         String loginText = simpleActions.getLoginText();
 
-        Assert.assertEquals(loginText.toLowerCase(),expectedText.toLowerCase());//        Assert.assertEquals(loginText,expectedText);
-//        Assert.assertTrue(loginText.equalsIgnoreCase(expectedText));//        Assert.assertTrue(loginText.contains(expectedText));
+        Assert.assertEquals(loginText.toLowerCase(),expectedText.toLowerCase());
+        /*
+         * SOME ALTERNATIVES ARE PRESENTED BELLOW
+         *
+         * Assert.assertEquals(loginText,expectedText);                 - THIS WILL FAIL BECAUSE OF CASE MISMATCH
+         * Assert.assertTrue(loginText.equalsIgnoreCase(expectedText)); - CHECK IF EQUALS RETURNS TRUE
+         * Assert.assertTrue(loginText.contains(expectedText));         - CHECK IF THE TEXT IS CONTAINED WITHIN
+         */
+
         System.out.println(loginText);
         System.out.println(expectedText);
     }

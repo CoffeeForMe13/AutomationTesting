@@ -24,4 +24,10 @@
             <class name="SimpleTest"/>
         </classes>
     </test>
+
+    <test name="SimpleTest_Conflict3">
+        <classes>
+            <class name="SimpleTest"/>
+        </classes>
+    </test>
 </suite>

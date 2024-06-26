@@ -54,7 +54,7 @@ public class RegisterUser extends BaseTest {
         register.city("Bucuresti");
         register.password("1111");
         register.checkTrainer();
-        register.submit();
+        register.clickSubmitButton();
 
     }
 }

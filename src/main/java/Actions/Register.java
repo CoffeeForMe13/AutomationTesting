@@ -47,7 +47,7 @@ public class Register {
         element.trainer().click();
     }
 
-    public void submit(){
+    public void clickSubmitButton(){
         element.submit().click();
     }
 

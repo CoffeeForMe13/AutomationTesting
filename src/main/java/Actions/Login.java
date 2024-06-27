@@ -15,11 +15,11 @@ public class Login {
         element.registerButton().click();
     }
 
-    public void writeEmail(String email){
+    public void enterEmail(String email){
         element.userEmail().sendKeys(email);
     }
 
-    public void writePassword(String password){
+    public void enterPassword(String password){
         element.userPassword().sendKeys(password);
     }
 
@@ -29,6 +29,10 @@ public class Login {
 
     public String getLoginText(){
         return element.loginText().getText();
+    }
+
+    public String errorForbiddenAccessText(){
+        return element.errorForbiddenAccess().getText();
     }
 
 

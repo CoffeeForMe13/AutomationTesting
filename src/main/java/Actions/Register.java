@@ -31,7 +31,7 @@ public class Register {
         element.email().sendKeys(email);
     }
 
-    public void password(String password){
+    public void setPassword(String password){
         element.password().sendKeys(password);
     }
 
@@ -49,6 +49,25 @@ public class Register {
 
     public void clickSubmitButton(){
         element.submit().click();
+    }
+
+    public void registerUser(boolean isTrainer){
+
+        setFirstname("Adrian");
+        setLastname("Marin");
+        setPhoneNumber("0777333999");
+        setEmail("adi@adi.com");
+        city("Bucuresti");
+        setPassword("1111");
+
+        if(isTrainer){
+            checkTrainer();
+        }
+        else {
+            checkCustomer();
+        }
+
+        clickSubmitButton();
     }
 
 

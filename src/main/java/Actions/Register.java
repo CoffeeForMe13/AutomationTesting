@@ -51,14 +51,32 @@ public class Register {
         element.submit().click();
     }
 
-    public void registerUser(boolean isTrainer){
-
+    private void completeFields(String number, String mail) {
         setFirstname("Adrian");
         setLastname("Marin");
-        setPhoneNumber("0777333999");
-        setEmail("adi@adi.com");
+        setPhoneNumber(number);
+        setEmail(mail);
         city("Bucuresti");
         setPassword("1111");
+    }
+
+    public void registerUser(boolean isTrainer){
+
+        completeFields("1423321", "adi@adi4.com");
+
+        if(isTrainer){
+            checkTrainer();
+        }
+        else {
+            checkCustomer();
+        }
+
+        clickSubmitButton();
+    }
+
+    public void registerUser(String email, String phoneNumber, boolean isTrainer){
+
+        completeFields(phoneNumber, email);
 
         if(isTrainer){
             checkTrainer();

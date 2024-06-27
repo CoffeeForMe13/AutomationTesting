@@ -35,5 +35,11 @@ public class Login {
         return element.errorForbiddenAccess().getText();
     }
 
+    public void login(String email, String password) {
+        enterEmail(email);
+        enterPassword(password);
+        clickLogin();
+    }
+
 
 }

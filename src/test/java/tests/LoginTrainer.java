@@ -12,40 +12,37 @@ import utile.BaseTest;
 import java.time.Duration;
 
 public class LoginTrainer extends BaseTest {
+
+    //Declarations
     private Login login = null;
     private Dashboard dashboard = null;
 
     @Test
     public void loginTrainer() {
 
+        //Create test
         initTest("Login trainer");
+
+        //Make initializations
         login = new Login(driver);
         dashboard = new Dashboard(driver);
 
-        Assert.assertTrue(login.getLoginText().equalsIgnoreCase("LOGIN"),"failed to return to the Login page");
+        Assert.assertTrue(login.getLoginText().equalsIgnoreCase("LOGIN"),"not on the login page");
 
-//        String email = RegisterUser.getEmail();
-//        String password = RegisterUser.getPassword();
-        String email = "adi@adi.com";
+        //Declare email and password variables
+        String email = "adi@adi123.com";
         String password = "1111";
 
-        login.enterEmail(email);
-        login.enterPassword(password);
-        login.clickLogin();
-
-        /*
-         * Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-         * wait.until(d -> revealed.isDisplayed());
-         */
-
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#userNameDisplay")));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(dashboard.getWebElement()));
-
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#userNameDisplay")));
-
-        Assert.assertTrue(dashboard.getUserEmailFromDashboard().equalsIgnoreCase(email),"failed to login");
+        //Try to login
+        login.login(email, password);
+        waitFor("#userNameDisplay", "#errorForbiddenAccess",5);
+        if(!login.errorForbiddenAccessText().isEmpty()){
+            Assert.fail("Incorrect credentials! Failed to login");
+        }
+        else {
+            Assert.assertTrue(dashboard.getUserEmailFromDashboard().equalsIgnoreCase(email),"Account mismatch");
+        }
     }
+
+
 }

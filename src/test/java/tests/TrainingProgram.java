@@ -3,9 +3,7 @@ package tests;
 import Actions.Dashboard;
 import Actions.Login;
 import Actions.Register;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import utile.BaseTest;
 
@@ -16,7 +14,6 @@ public class TrainingProgram extends BaseTest {
     private Login login = null;
     private Dashboard dashboard = null;
     private Register register = null;
-    private RegisterUser registerUser = null;
 
     @Test
     public void openTrainingTab(){
@@ -26,25 +23,27 @@ public class TrainingProgram extends BaseTest {
         login = new Login(driver);
         dashboard = new Dashboard(driver);
         register = new Register(driver);
-        registerUser = new RegisterUser();
 
-        login();
-    }
-
-    private void login() {
         String email = "adi@adi3.com";
         String password = "1111";
 
-        login.enterEmail(email);
-        login.enterPassword(password);
-        login.clickLogin();
+        login.login(email,password);
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#userNameDisplay")));
+        waitFor("#userNameDisplay", "#errorForbiddenAccess",5);
 
-        if(login.errorForbiddenAccessText().equalsIgnoreCase("Access forbidden!")){
-            register.registerUser(true);
+        try{
+            if(!login.errorForbiddenAccessText().isEmpty()){
+                login.clickRegisterButton();
+
+                Assert.assertTrue(register.getSingUpText().equalsIgnoreCase("SIGN UP"),"failed to enter Register page");
+
+                register.registerUser("adi@adi000.com","0-000-000-000",true);
+            }
+        }catch (org.openqa.selenium.NoSuchElementException noSuchElementException){
+            Assert.assertTrue(dashboard.getUserEmailFromDashboard().equalsIgnoreCase(email),"Account mismatch");
         }
+
     }
+
 
 }

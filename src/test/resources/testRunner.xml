@@ -6,7 +6,7 @@
 <!--        </classes>-->
 <!--    </test>-->
 
-<!--    <test name="Register User">-->
+<!--    <test name="Register Trainer User">-->
 <!--        <classes>-->
 <!--            <class name="tests.RegisterUser"/>-->
 <!--        </classes>-->

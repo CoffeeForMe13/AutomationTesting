@@ -15,4 +15,8 @@ public class Dashboard {
         return elements.usernameDisplay().getText();
     }
 
+    public void clickTraining(){
+        elements.training().click();
+    }
+
 }

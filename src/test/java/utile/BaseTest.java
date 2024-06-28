@@ -105,4 +105,8 @@ public class BaseTest {
         ));
     }
 
+//    public void waitFor(int forSeconds) {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(forSeconds));
+//        wait.wait(1000,90);
+//    }
 }

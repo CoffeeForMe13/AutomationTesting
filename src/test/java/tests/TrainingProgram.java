@@ -3,6 +3,7 @@ package tests;
 import Actions.Dashboard;
 import Actions.Login;
 import Actions.Register;
+import Actions.Training;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utile.BaseTest;
@@ -14,6 +15,7 @@ public class TrainingProgram extends BaseTest {
     private Login login = null;
     private Dashboard dashboard = null;
     private Register register = null;
+    private Training training = null;
 
     @Test
     public void openTrainingTab(){
@@ -23,6 +25,7 @@ public class TrainingProgram extends BaseTest {
         login = new Login(driver);
         dashboard = new Dashboard(driver);
         register = new Register(driver);
+        training = new Training(driver);
 
         String email = "adi@adi3.com";
         String password = "1111";
@@ -43,7 +46,16 @@ public class TrainingProgram extends BaseTest {
             Assert.assertTrue(dashboard.getUserEmailFromDashboard().equalsIgnoreCase(email),"Account mismatch");
         }
 
+        //Go to Training tab
+        dashboard.clickTraining();
+        waitFor(".mdc-button",5);
+
+        //Generate Program
+//        training.clickGenerateProgram();
+        training.createAProgram();
+
     }
+
 
 
 }

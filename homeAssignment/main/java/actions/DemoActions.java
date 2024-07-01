@@ -5,7 +5,7 @@ import webElements.DemoElements;
 
 public class DemoActions {
 
-    DemoElements elements;
+    private DemoElements elements;
 
     public DemoActions(WebDriver driver) {
         this.elements = new DemoElements(driver);

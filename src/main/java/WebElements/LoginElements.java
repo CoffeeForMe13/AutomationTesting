@@ -32,6 +32,9 @@ public class LoginElements {
         return driver.findElement(By.cssSelector("h2.loginPageID"));
     }
 
+    public WebElement errorForbiddenAccess(){
+        return driver.findElement(By.cssSelector("#errorForbiddenAccess"));
+    }
 
 
 }

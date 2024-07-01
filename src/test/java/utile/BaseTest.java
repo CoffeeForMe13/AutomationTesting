@@ -5,14 +5,19 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
 import java.io.File;
+import java.time.Duration;
+import java.util.List;
 
 public class BaseTest {
 
@@ -25,6 +30,7 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         screenshotUtils = new ScreenshotUtils(driver);
+        driver.get("http:apptest.go.ro:9999/login");//open link
     }
 
     @AfterClass
@@ -44,7 +50,7 @@ public class BaseTest {
     @AfterMethod
     public void afterMethod(ITestResult result) {
         if (result.getStatus() == ITestResult.FAILURE) {
-            screenshotUtils.captureAndSaveScreenshots(result.getMethod().getMethodName());
+            captureAndSaveFailureScreenshot(result.getMethod().getMethodName());
         }
 
         if (result.getStatus() == ITestResult.FAILURE) {
@@ -77,4 +83,31 @@ public class BaseTest {
 
     }
 
+    public void waitFor(String cssSelector, int forSeconds){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(forSeconds));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSelector)));
+
+
+        /*
+         * Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+         * wait.until(d -> revealed.isDisplayed());
+         */
+
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#userNameDisplay")));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(dashboard.getWebElement()));
+    }
+
+    public void waitFor(String cssSelector1, String cssSelector2, int forSeconds){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(forSeconds));
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSelector1)),
+                ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSelector2))
+        ));
+    }
+
+//    public void waitFor(int forSeconds) {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(forSeconds));
+//        wait.wait(1000,90);
+//    }
 }

@@ -3,7 +3,7 @@
 
     <test name="demoTest">
         <classes>
-            <class name="tests.demoTest"/>
+            <class name="DemoTest"/>
         </classes>
     </test>
 

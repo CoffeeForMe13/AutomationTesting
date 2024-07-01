@@ -38,10 +38,9 @@ public class BaseTestFunctionality {
     }
 
     /**
-     * Aceasta metoda creaza rezultatul testului
      * This method populates the test report
      *
-     * @param result
+     * @param result Contains information about the test
      */
     @AfterMethod
     public void afterMethod(ITestResult result) {

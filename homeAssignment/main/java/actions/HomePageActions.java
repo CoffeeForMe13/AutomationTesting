@@ -5,7 +5,7 @@ import webElements.HomePageElements;
 
 public class HomePageActions {
 
-    private HomePageElements elements;
+    private final HomePageElements elements;
 
     public HomePageActions(WebDriver driver){
         this.elements = new HomePageElements(driver);

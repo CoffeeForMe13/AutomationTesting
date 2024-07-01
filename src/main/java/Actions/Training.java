@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.io.IOException;
+
 public class Training {
 
     private Actions action;
@@ -16,9 +18,15 @@ public class Training {
     }
 
     public void clickGenerateProgram(){
-        if(!elements.generateProgram().getAttribute("disabled").equals("true")){
-            elements.generateProgram().click();
+        try{
+            if(!elements.generateProgram().getAttribute("disabled").equals("true")){
+                elements.generateProgram().click();
+            }
         }
+        catch (Exception e){
+
+        }
+
     }
 
     public void dragAndDropTraining(WebElement sourceLocator, WebElement destinationLocator){
@@ -26,6 +34,7 @@ public class Training {
     }
 
     public void createAProgram(){
+        clickGenerateProgram();
         dragAndDropTraining(elements.chest(),elements.Monday());
         dragAndDropTraining(elements.legs(),elements.Wednesday());
         dragAndDropTraining(elements.biceps(),elements.Sunday());

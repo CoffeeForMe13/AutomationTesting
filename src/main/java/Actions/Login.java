@@ -2,13 +2,19 @@ package Actions;
 
 import WebElements.LoginElements;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class Login {
 
     private LoginElements element;
+    private Wait<WebDriver> wait;
 
     public Login(WebDriver driver){
         this.element = new LoginElements(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     public void clickRegisterButton(){
@@ -31,8 +37,14 @@ public class Login {
         return element.loginText().getText();
     }
 
-    public String errorForbiddenAccessText(){
-        return element.errorForbiddenAccess().getText();
+    public boolean errorForbiddenAccessText(){
+        try{
+            wait.until(d -> element.errorForbiddenAccess().isDisplayed());
+            return element.errorForbiddenAccess().isDisplayed();
+        } catch (Exception e){
+            return false;
+        }
+
     }
 
     public void login(String email, String password) {

@@ -2,12 +2,10 @@ package tests;
 
 import Actions.Dashboard;
 import Actions.Login;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utile.BaseTest;
+import utile.ConfigLoader;
 
 import java.time.Duration;
 
@@ -30,13 +28,14 @@ public class LoginTrainer extends BaseTest {
         Assert.assertTrue(login.getLoginText().equalsIgnoreCase("LOGIN"),"not on the login page");
 
         //Declare email and password variables
-        String email = "adi@adi123.com";
-        String password = "1111";
+        ConfigLoader configLoader = new ConfigLoader("src/test/resources/proprietati/dateUser1.properties");
+        String email = configLoader.getProperty("email");
+        String password = configLoader.getProperty("password");
 
         //Try to login
         login.login(email, password);
         waitFor("#userNameDisplay", "#errorForbiddenAccess",5);
-        if(!login.errorForbiddenAccessText().isEmpty()){
+        if(!login.errorForbiddenAccessText()){
             Assert.fail("Incorrect credentials! Failed to login");
         }
         else {

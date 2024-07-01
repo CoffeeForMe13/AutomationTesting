@@ -2,13 +2,21 @@ package Actions;
 
 import WebElements.RegisterElements;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utile.ConfigLoader;
+
+import java.time.Duration;
 
 public class Register {
 
     private RegisterElements element = null;
+    private Wait<WebDriver> wait;
+    private ConfigLoader configLoader;
 
     public Register(WebDriver driver){
         this.element = new RegisterElements(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     public String getSingUpText(){
@@ -51,13 +59,39 @@ public class Register {
         element.submit().click();
     }
 
-    private void completeFields(String number, String mail) {
-        setFirstname("Adrian");
-        setLastname("Marin");
-        setPhoneNumber(number);
+    private void completeFields(String phoneNumber, String mail) {
+
+        configLoader = new ConfigLoader("src/test/resources/proprietati/dateUser1.properties");
+
+        String firstName = configLoader.getProperty("firstName");
+        String lastName = configLoader.getProperty("lastName");
+        String city = configLoader.getProperty("city");
+        String password = configLoader.getProperty("password");
+
+        setFirstname(firstName);
+        setLastname(lastName);
+        setPhoneNumber(phoneNumber);
         setEmail(mail);
-        city("Bucuresti");
-        setPassword("1111");
+        city(city);
+        setPassword(password);
+    }
+
+    private void completeFields() {
+        configLoader = new ConfigLoader("src/test/resources/proprietati/dateUser1.properties");
+
+        String firstName = configLoader.getProperty("firstName");
+        String lastName = configLoader.getProperty("lastName");
+        String phoneNumber = configLoader.getProperty("phoneNumber");
+        String mail = configLoader.getProperty("mail");
+        String city = configLoader.getProperty("city");
+        String password = configLoader.getProperty("password");
+
+        setFirstname(firstName);
+        setLastname(lastName);
+        setPhoneNumber(phoneNumber);
+        setEmail(mail);
+        city(city);
+        setPassword(password);
     }
 
     public void registerUser(boolean isTrainer){

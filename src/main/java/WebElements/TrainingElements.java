@@ -60,5 +60,13 @@ public class TrainingElements {
         return driver.findElement(By.cssSelector("#cdk-drop-list-7"));
     }
 
+    public WebElement logout(){
+        return driver.findElement(By.cssSelector(".logout"));
+    }
+
+    public WebElement pageTitle(){
+        return driver.findElement(By.xpath("//h2[contains(text(),'Training program')]"));
+    }
+
 
 }

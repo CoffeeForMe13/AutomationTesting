@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="SeleniumTestSuite">
 
-    <test name="">
+    <test name="demoTest">
         <classes>
-            <class name="tests.toFill"/>
+            <class name="DemoTest"/>
         </classes>
     </test>
 

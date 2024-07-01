@@ -31,4 +31,8 @@ public class HomePageElements {
     public WebElement welcomeMessage(){
         return driver.findElement(By.cssSelector("#leftPanel > p"));
     }
+
+    public WebElement errorMessage(){
+        return driver.findElement(By.cssSelector("#rightPanel > p.error"));
+    }
 }

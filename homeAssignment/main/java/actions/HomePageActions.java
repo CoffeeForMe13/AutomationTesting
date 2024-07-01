@@ -31,4 +31,8 @@ public class HomePageActions {
     public String getWelcomeMessage(){
         return elements.welcomeMessage().getText();
     }
+
+    public String getErrorMessage(){
+        return elements.errorMessage().getText();
+    }
 }

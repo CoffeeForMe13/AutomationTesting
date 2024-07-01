@@ -22,4 +22,13 @@ public class HomePageActions {
     public void clickSubmit(){
         elements.loginButton().click();
     }
+
+    public void clickRegisterLink(){
+
+        elements.registerLink().click();
+    }
+
+    public String getWelcomeMessage(){
+        return elements.welcomeMessage().getText();
+    }
 }

@@ -23,4 +23,12 @@ public class HomePageElements {
     public WebElement loginButton(){
         return driver.findElement(By.cssSelector("input[type='submit']"));
     }
+
+    public WebElement registerLink(){
+        return driver.findElement(By.cssSelector("a[href^='register.htm']"));
+    }
+
+    public WebElement welcomeMessage(){
+        return driver.findElement(By.cssSelector("#leftPanel > p"));
+    }
 }

@@ -10,10 +10,10 @@ public class FailedLoginTest extends BaseTestFunctionality {
 
 
     @Test
-    public void logIntoAccount(){
+    public void failedLogIntoAccount(){
 
         //Create test
-        initTest("Log into Account");
+        initTest("Failed log into Account");
 
         //Make initialization
         HomePageActions homePage = new HomePageActions(driver);

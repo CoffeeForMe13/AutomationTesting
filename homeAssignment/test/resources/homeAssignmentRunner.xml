@@ -7,4 +7,28 @@
         </classes>
     </test>
 
+    <test name="Register Account">
+        <classes>
+            <class name="tests.RegisterTest"/>
+        </classes>
+    </test>
+
+    <test name="Log into Account">
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+
+    <test name="Failed log into Account">
+        <classes>
+            <class name="tests.FailedLoginTest"/>
+        </classes>
+    </test>
+
+    <test name="Log Out from Account">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
+
 </suite>

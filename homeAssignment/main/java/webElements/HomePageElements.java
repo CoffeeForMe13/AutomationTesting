@@ -28,11 +28,12 @@ public class HomePageElements {
         return driver.findElement(By.cssSelector("a[href^='register.htm']"));
     }
 
-    public WebElement welcomeMessage(){
-        return driver.findElement(By.cssSelector("#leftPanel > p"));
-    }
-
     public WebElement errorMessage(){
         return driver.findElement(By.cssSelector("#rightPanel > p.error"));
     }
+
+    public WebElement ATMServices(){
+        return driver.findElement(By.cssSelector(".captionone"));
+    }
+
 }

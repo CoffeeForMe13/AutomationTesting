@@ -1,6 +1,7 @@
 package tests;
 
 import actions.HomePageActions;
+import actions.OverviewPageActions;
 import actions.SignUpActions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -18,6 +19,7 @@ public class RegisterTest extends BaseTestFunctionality {
         //Make initialization
         HomePageActions homePage = new HomePageActions(driver);
         SignUpActions signUp = new SignUpActions(driver);
+        OverviewPageActions overviewPage = new OverviewPageActions(driver);
 
         //Navigate to Sign Up page
         homePage.clickRegisterLink();
@@ -39,11 +41,12 @@ public class RegisterTest extends BaseTestFunctionality {
         signUp.clickRegister();
 
         //Check if registration was successful
-        Assert.assertTrue(homePage.getWelcomeMessage().equalsIgnoreCase("Welcome " +
+        Assert.assertTrue(overviewPage.getWelcomeMessage().equalsIgnoreCase("Welcome " +
                 configLoader.getProperty("firstName") +
+                " " +
                 configLoader.getProperty("lastName")),"Account mismatch");
 
-        System.out.println(homePage.getWelcomeMessage());
+        System.out.println(overviewPage.getWelcomeMessage());
 
     }
 }

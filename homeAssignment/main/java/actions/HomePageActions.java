@@ -28,11 +28,11 @@ public class HomePageActions {
         elements.registerLink().click();
     }
 
-    public String getWelcomeMessage(){
-        return elements.welcomeMessage().getText();
-    }
-
     public String getErrorMessage(){
         return elements.errorMessage().getText();
+    }
+
+    public String getATMServicesText(){
+        return elements.ATMServices().getText();
     }
 }

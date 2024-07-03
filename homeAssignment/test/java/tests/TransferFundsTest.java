@@ -53,6 +53,12 @@ public class TransferFundsTest extends BaseTestFunctionality {
             //Set account
             openNewAccountPage.selectAccount(account);
 
+            //Check selected options
+            System.out.println("Number of 'Account Type' selected is " + openNewAccountPage.getSelectedAccountType().size());
+            Assert.assertEquals(openNewAccountPage.getSelectedAccountType().getFirst(),"CHECKING","");
+            System.out.println("Number of 'Account Type' selected is " + openNewAccountPage.getSelectedAccount().size());
+            Assert.assertEquals(openNewAccountPage.getSelectedAccount().getFirst(),account,"");
+
             //Click OPEN NEW ACCOUNT
             openNewAccountPage.clickOpenNewAccountButton();
 

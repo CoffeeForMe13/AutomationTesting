@@ -66,6 +66,10 @@ public class BaseTestFunctionality {
         extentTest = ReportingManager.createTest(testName);
     }
 
+    public String getPageTitle(){
+        return driver.getTitle();
+    }
+
     private void captureAndSaveFailureScreenshot(String testName) {
         //Create a new folder, if it doesn't exist
         File screenshotDirectory = new File("Screenshots");

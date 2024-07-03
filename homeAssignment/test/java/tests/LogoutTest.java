@@ -27,6 +27,10 @@ public class LogoutTest extends BaseTestFunctionality {
         //Login
         login(configLoader, driver);
 
+        //Check the page title
+        System.out.println(getPageTitle());
+        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
+
         //Log Out
         overviewPage.clickLogOutLink();
 

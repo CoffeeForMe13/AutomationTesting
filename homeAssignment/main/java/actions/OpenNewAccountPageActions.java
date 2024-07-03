@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class OpenNewAccountPageActions extends MenuLinksActions{
 
     private final OpenNewAccountPageElements elements;
-    private Wait<WebDriver> wait;
+    private final Wait<WebDriver> wait;
 
     public OpenNewAccountPageActions(WebDriver driver){
         super(driver);

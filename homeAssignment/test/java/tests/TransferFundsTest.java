@@ -1,6 +1,5 @@
 package tests;
 
-import actions.HomePageActions;
 import actions.OpenNewAccountPageActions;
 import actions.OverviewPageActions;
 import actions.TransferFundsPageActions;
@@ -20,7 +19,6 @@ public class TransferFundsTest extends BaseTestFunctionality {
         initTest("Transfer founds between accounts");
 
         //Make initialization
-        HomePageActions homePage = new HomePageActions(driver);
         OverviewPageActions overviewPage = new OverviewPageActions(driver);
         TransferFundsPageActions transferFundsPage = new TransferFundsPageActions(driver);
         OpenNewAccountPageActions openNewAccountPage = new OpenNewAccountPageActions(driver);

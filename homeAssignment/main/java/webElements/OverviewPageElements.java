@@ -19,14 +19,6 @@ public class OverviewPageElements extends MenuLinks {
         return driver.findElement(By.cssSelector("#leftPanel > p"));
     }
 
-//    public WebElement logOutLink(){
-//        return driver.findElement(By.cssSelector("a[href^='logout.htm']"));
-//    }
-//
-//    public WebElement transferFundsLink(){
-//        return driver.findElement(By.cssSelector("a[href^='transfer.htm']"));
-//    }
-
     public List<WebElement> noOfAccounts(){
         return driver.findElements(By.cssSelector("#accountTable > tbody > tr"));
     }

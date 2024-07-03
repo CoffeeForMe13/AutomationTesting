@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class OverviewPageActions extends MenuLinksActions{
 
     private final OverviewPageElements elements;
-    private Wait<WebDriver> wait;
+    private final Wait<WebDriver> wait;
 
     public OverviewPageActions(WebDriver driver){
         super(driver);
@@ -23,14 +23,6 @@ public class OverviewPageActions extends MenuLinksActions{
     public String getWelcomeMessage(){
         return elements.welcomeMessage().getText();
     }
-
-//    public void clickLogOutLink(){
-//        elements.logOutLink().click();
-//    }
-//
-//    public void clickTransferFundsLink(){
-//        elements.transferFundsLink().click();
-//    }
 
     public int getNoOfAccounts(){
         return elements.noOfAccounts().size() - 1;
@@ -55,13 +47,9 @@ public class OverviewPageActions extends MenuLinksActions{
         return elements.accountNo2Balance().getText();
     }
 
-//    public void clickOpenNewAccountLink(){
-//        elements.openNewAccountLink().click();
-//    }
-
     public boolean checkAccount(String newAccount){
         wait.until(d -> elements.accountNo1().isDisplayed());
-        return elements.accountIDWEList().stream().map(WebElement::getText).collect(Collectors.toList()).contains(newAccount);
+        return elements.accountIDWEList().stream().map(WebElement::getText).toList().contains(newAccount);
     }
 
 

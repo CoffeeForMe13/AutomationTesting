@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class TransferFundsPageActions extends MenuLinksActions{
 
     private final TransferFundsPageElements elements;
-    private Wait<WebDriver> wait;
+    private final Wait<WebDriver> wait;
 
     public TransferFundsPageActions(WebDriver driver) {
         super(driver);
@@ -54,8 +54,4 @@ public class TransferFundsPageActions extends MenuLinksActions{
         wait.until(d -> elements.transactionResultMessage().isDisplayed());
         return elements.transactionResultMessage().getText();
     }
-
-//    public void clickAccountsOverviewLink(){
-//        elements.accountsOverviewLink().click();
-//    }
 }

@@ -56,8 +56,4 @@ public class TransferFundsPageElements extends MenuLinks {
         return driver.findElement(By.cssSelector("#showResult > h1.title"));
     }
 
-//    public WebElement accountsOverviewLink(){
-//        return driver.findElement(By.cssSelector("a[href^='overview.htm']"));
-//    }
-
 }

@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.List;
-
 public class OpenNewAccountPageElements extends MenuLinks{
 
     private final WebDriver driver;
@@ -40,9 +38,4 @@ public class OpenNewAccountPageElements extends MenuLinks{
         return driver.findElement(By.cssSelector("select#fromAccountId>option"));
     }
 
-
-
-//    public WebElement accountsOverviewLink(){
-//        return driver.findElement(By.cssSelector("a[href^='overview.htm']"));
-//    }
 }

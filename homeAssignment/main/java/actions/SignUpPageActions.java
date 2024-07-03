@@ -3,11 +3,11 @@ package actions;
 import org.openqa.selenium.WebDriver;
 import webElements.SignUpPageElements;
 
-public class SignUpActions {
+public class SignUpPageActions {
 
     private final SignUpPageElements elements;
 
-    public SignUpActions(WebDriver driver){
+    public SignUpPageActions(WebDriver driver){
         this.elements = new SignUpPageElements(driver);
     }
 

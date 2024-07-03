@@ -31,4 +31,10 @@
         </classes>
     </test>
 
+    <test name="Transfer founds between accounts">
+        <classes>
+            <class name="tests.TransferFundsTest"/>
+        </classes>
+    </test>
+
 </suite>

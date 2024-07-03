@@ -61,5 +61,4 @@ public class SignUpPageElements {
         return driver.findElement(By.cssSelector("td > input[type='submit']"));
     }
 
-
 }

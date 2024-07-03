@@ -12,12 +12,10 @@ import java.util.stream.Collectors;
 public class TransferFundsPageActions extends MenuLinksActions{
 
     private final TransferFundsPageElements elements;
-    private final Wait<WebDriver> wait;
 
     public TransferFundsPageActions(WebDriver driver) {
         super(driver);
         this.elements = new TransferFundsPageElements(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     public String getPageHeaderText(){

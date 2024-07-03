@@ -10,11 +10,11 @@ import java.time.Duration;
 public class MenuLinksActions {
 
     private final MenuLinks elements;
-    private Wait<WebDriver> wait;
+    public final Wait<WebDriver> wait;
 
     public MenuLinksActions(WebDriver driver){
         this.elements = new MenuLinks(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void clickOpenNewAccountLink(){

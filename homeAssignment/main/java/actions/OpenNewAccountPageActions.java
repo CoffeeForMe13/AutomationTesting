@@ -12,12 +12,10 @@ import java.util.stream.Collectors;
 public class OpenNewAccountPageActions extends MenuLinksActions{
 
     private final OpenNewAccountPageElements elements;
-    private final Wait<WebDriver> wait;
 
     public OpenNewAccountPageActions(WebDriver driver){
         super(driver);
         this.elements = new OpenNewAccountPageElements(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     public void selectAccountType(String accountType){

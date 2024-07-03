@@ -2,22 +2,15 @@ package actions;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import webElements.OverviewPageElements;
-
-import java.time.Duration;
-import java.util.stream.Collectors;
 
 public class OverviewPageActions extends MenuLinksActions{
 
     private final OverviewPageElements elements;
-    private final Wait<WebDriver> wait;
 
     public OverviewPageActions(WebDriver driver){
         super(driver);
         this.elements = new OverviewPageElements(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     public String getWelcomeMessage(){
@@ -25,6 +18,7 @@ public class OverviewPageActions extends MenuLinksActions{
     }
 
     public int getNoOfAccounts(){
+        wait.until(d -> elements.accountNo1().isDisplayed());
         return elements.noOfAccounts().size() - 1;
     }
 

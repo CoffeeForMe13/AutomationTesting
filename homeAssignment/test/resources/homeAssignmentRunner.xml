@@ -37,4 +37,10 @@
         </classes>
     </test>
 
+    <test name="Pay Bill">
+        <classes>
+            <class name="tests.BillPayTest"/>
+        </classes>
+    </test>
+
 </suite>

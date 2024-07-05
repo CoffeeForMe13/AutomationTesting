@@ -5,8 +5,8 @@ import actions.OverviewPageActions;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import utile.ConfigLoader;
 import utilities.BaseTestFunctionality;
+import utilities.ConfigurationLoader;
 
 public class LoginTest extends BaseTestFunctionality {
 
@@ -20,7 +20,7 @@ public class LoginTest extends BaseTestFunctionality {
         OverviewPageActions overviewPage = new OverviewPageActions(driver);
 
         //Get registration data
-        ConfigLoader configLoader = new ConfigLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
+        ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
 
         //Login
         login(configLoader, driver);
@@ -33,7 +33,7 @@ public class LoginTest extends BaseTestFunctionality {
 
     }
 
-    public static void login(ConfigLoader configLoader, WebDriver driver){
+    public static void login(ConfigurationLoader configLoader, WebDriver driver){
 
         HomePageActions homePage = new HomePageActions(driver);
 

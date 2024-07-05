@@ -1,6 +1,6 @@
 package tests;
 
-import actions.HomePageActions;
+import actions.AccountActivityPageActions;
 import actions.OverviewPageActions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -9,17 +9,18 @@ import utilities.ConfigurationLoader;
 
 import static tests.LoginTest.login;
 
-public class LogoutTest extends BaseTestFunctionality {
+public class ViewTransactionsHistoryTest extends BaseTestFunctionality {
+
 
     @Test
-    public void logOutFromAccount(){
+    public void viewTransactionsHistoryTest(){
 
         //Create test
-        initTest("Log Out from Account");
+        initTest("View transaction history");
 
         //Make initialization
-        HomePageActions homePage = new HomePageActions(driver);
         OverviewPageActions overviewPage = new OverviewPageActions(driver);
+        AccountActivityPageActions accountActivityPage = new AccountActivityPageActions(driver);
 
         //Get registration data
         ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
@@ -31,14 +32,13 @@ public class LogoutTest extends BaseTestFunctionality {
         System.out.println(getPageTitle());
         Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
 
-        //Log Out
-        overviewPage.clickLogOutLink();
 
-        //Check if log out was successful
-        String expectedText = "atm services";
-        String ATMServicesText = homePage.getATMServicesText();
+        //Open account info dor the first account
+        overviewPage.clickAccount1ID();
 
-        Assert.assertEquals(ATMServicesText.toLowerCase(), expectedText.toLowerCase());
+        //Check the page title
+        System.out.println(getPageTitle());
+        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Account Activity"), "Account Activity page not loaded");
 
 
     }

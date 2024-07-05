@@ -28,6 +28,7 @@ public class OverviewPageActions extends MenuLinksActions{
     }
 
     public String getAccount2ID(){
+        wait.until(d -> elements.accountNo2().isDisplayed());
         return elements.accountNo2().getText();
     }
 
@@ -44,6 +45,11 @@ public class OverviewPageActions extends MenuLinksActions{
     public boolean checkAccount(String newAccount){
         wait.until(d -> elements.accountNo1().isDisplayed());
         return elements.accountIDWEList().stream().map(WebElement::getText).toList().contains(newAccount);
+    }
+
+    public void clickAccount1ID(){
+        wait.until(d -> elements.accountNo1().isDisplayed());
+        elements.accountNo1().click();
     }
 
 

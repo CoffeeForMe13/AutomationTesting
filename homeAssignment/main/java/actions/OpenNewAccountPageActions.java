@@ -1,11 +1,8 @@
 package actions;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import webElements.OpenNewAccountPageElements;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +25,7 @@ public class OpenNewAccountPageActions extends MenuLinksActions{
     }
 
     public List<String> getSelectedAccountType(){
-        return elements.accountType().getOptions().stream().map(e -> e.getText()).collect(Collectors.toList());
+        return elements.accountType().getAllSelectedOptions().stream().map(e -> e.getText()).collect(Collectors.toList());
     }
 
     public void selectAccount(String account){
@@ -37,7 +34,7 @@ public class OpenNewAccountPageActions extends MenuLinksActions{
     }
 
     public List<String> getSelectedAccount(){
-        return elements.account().getOptions().stream().map(e -> e.getText()).collect(Collectors.toList());
+        return elements.account().getAllSelectedOptions().stream().map(e -> e.getText()).collect(Collectors.toList());
     }
 
     public void clickOpenNewAccountButton(){

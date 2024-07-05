@@ -43,4 +43,10 @@
         </classes>
     </test>
 
+    <test name="View transaction history">
+        <classes>
+            <class name="tests.ViewTransactionsHistoryTest"/>
+        </classes>
+    </test>
+
 </suite>

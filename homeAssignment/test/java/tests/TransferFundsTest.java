@@ -5,8 +5,8 @@ import actions.OverviewPageActions;
 import actions.TransferFundsPageActions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import utile.ConfigLoader;
 import utilities.BaseTestFunctionality;
+import utilities.ConfigurationLoader;
 
 import static tests.LoginTest.login;
 
@@ -24,7 +24,7 @@ public class TransferFundsTest extends BaseTestFunctionality {
         OpenNewAccountPageActions openNewAccountPage = new OpenNewAccountPageActions(driver);
 
         //Get registration data
-        ConfigLoader configLoader = new ConfigLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
+        ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
 
         //Login
         login(configLoader, driver);
@@ -56,7 +56,7 @@ public class TransferFundsTest extends BaseTestFunctionality {
             //Check selected options
             System.out.println("Number of 'Account Type' selected is " + openNewAccountPage.getSelectedAccountType().size());
             Assert.assertEquals(openNewAccountPage.getSelectedAccountType().getFirst(),"CHECKING","");
-            System.out.println("Number of 'Account Type' selected is " + openNewAccountPage.getSelectedAccount().size());
+            System.out.println("Number of 'Account' selected is " + openNewAccountPage.getSelectedAccount().size());
             Assert.assertEquals(openNewAccountPage.getSelectedAccount().getFirst(),account,"");
 
             //Click OPEN NEW ACCOUNT

@@ -49,4 +49,10 @@
         </classes>
     </test>
 
+    <test name="Personal Info Update">
+        <classes>
+            <class name="tests.PersonalInfoUpdateTest"/>
+        </classes>
+    </test>
+
 </suite>

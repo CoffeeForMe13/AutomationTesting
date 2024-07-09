@@ -24,8 +24,11 @@ public class HomePageActions {
     }
 
     public void clickRegisterLink(){
-
         elements.registerLink().click();
+    }
+
+    public void clickForgotLoginInfoLink(){
+        elements.forgotLoginInfoLink().click();
     }
 
     public String getErrorMessage(){

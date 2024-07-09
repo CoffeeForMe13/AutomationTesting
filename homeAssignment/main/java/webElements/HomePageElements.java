@@ -28,6 +28,10 @@ public class HomePageElements {
         return driver.findElement(By.cssSelector("a[href^='register.htm']"));
     }
 
+    public WebElement forgotLoginInfoLink(){
+        return driver.findElement(By.cssSelector("a[href^='lookup.htm']"));
+    }
+
     public WebElement errorMessage(){
         return driver.findElement(By.cssSelector("#rightPanel > p.error"));
     }

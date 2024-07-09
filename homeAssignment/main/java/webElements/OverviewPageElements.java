@@ -42,8 +42,4 @@ public class OverviewPageElements extends MenuLinks {
     public WebElement accountNo2Balance(){
         return driver.findElement(By.cssSelector("#accountTable > tbody > tr:nth-child(2) > td:nth-child(2)"));
     }
-
-    public WebElement openNewAccountLink(){
-        return driver.findElement(By.cssSelector("a[href^='openaccount.htm']"));
-    }
 }

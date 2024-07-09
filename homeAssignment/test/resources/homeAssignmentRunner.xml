@@ -61,4 +61,10 @@
         </classes>
     </test>
 
+    <test name="Forgot Login Info Test">
+        <classes>
+            <class name="tests.ForgotLoginInfoTest"/>
+        </classes>
+    </test>
+
 </suite>

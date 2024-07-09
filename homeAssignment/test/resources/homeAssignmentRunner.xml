@@ -55,4 +55,10 @@
         </classes>
     </test>
 
+    <test name="Open new account">
+        <classes>
+            <class name="tests.OpenNewAccountTest"/>
+        </classes>
+    </test>
+
 </suite>

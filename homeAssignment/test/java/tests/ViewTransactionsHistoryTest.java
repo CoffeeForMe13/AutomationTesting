@@ -75,11 +75,6 @@ public class ViewTransactionsHistoryTest extends BaseTestFunctionality {
 
         //Check account transactions
         List<String> transactions = accountActivityPage.getTableRowsToList();
-//        accountActivityPage.checkInitialFoundsTransfer();
-//        accountActivityPage.checkFoundsTransfer();
-//        accountActivityPage.checkBillPayment();
-        //Funds Transfer Sent $100.00
-        //Bill Payment to Mircea Grad $125.50
         boolean containsInitialTransaction = false;
         boolean containsFoundsTransfer = false;
         boolean containsBillPayment = false;

@@ -23,11 +23,15 @@ public class OverviewPageElements {
     }
 
     public WebElement accountNo1(){
-        return driver.findElement(By.cssSelector("#accountTable > tbody > tr:nth-child(1) > td:nth-child(1) > a"));
+        return driver.findElement(By.cssSelector("#accountTable > tbody > tr:nth-child(1) a"));
     }
 
     public WebElement accountNo2(){
-        return driver.findElement(By.cssSelector("#accountTable > tbody > tr:nth-child(2) > td:nth-child(1) > a"));
+        return driver.findElement(By.cssSelector("#accountTable > tbody > tr:nth-child(2) a"));
+    }
+
+    public List<WebElement> accountsList(){
+        return driver.findElements(By.cssSelector("#accountTable a"));
     }
 
     public List<WebElement> accountIDWEList(){
@@ -40,5 +44,9 @@ public class OverviewPageElements {
 
     public WebElement accountNo2Balance(){
         return driver.findElement(By.cssSelector("#accountTable > tbody > tr:nth-child(2) > td:nth-child(2)"));
+    }
+
+    public List<WebElement> balanceList(){
+        return driver.findElements(By.cssSelector("#accountTable tbody td:nth-child(2)"));
     }
 }

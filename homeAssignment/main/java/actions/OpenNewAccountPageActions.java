@@ -1,6 +1,7 @@
 package actions;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import webElements.OpenNewAccountPageElements;
 
 import java.util.List;
@@ -49,5 +50,10 @@ public class OpenNewAccountPageActions extends MenuLinksActions{
 
     public String getNewAccountNumber(){
         return elements.newAccountNumber().getText();
+    }
+
+    public List<String> getAccountsList(){
+        wait.until(d -> elements.defaultAccountOption().isDisplayed());
+        return elements.account().getOptions().stream().map(WebElement::getText).collect(Collectors.toList());
     }
 }

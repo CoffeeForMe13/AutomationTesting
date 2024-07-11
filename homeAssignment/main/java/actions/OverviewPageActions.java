@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import webElements.OverviewPageElements;
 
+import java.util.List;
+
 public class OverviewPageActions extends MenuLinksActions{
 
     private final OverviewPageElements elements;
@@ -50,6 +52,11 @@ public class OverviewPageActions extends MenuLinksActions{
     public void clickAccount1ID(){
         wait.until(d -> elements.accountNo1().isDisplayed());
         elements.accountNo1().click();
+    }
+
+    public List<String> getAccountsList(){
+        wait.until(d -> elements.accountNo1().isDisplayed());
+        return elements.accountIDWEList().stream().map(WebElement::getText).toList();
     }
 
 

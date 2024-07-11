@@ -32,8 +32,8 @@ public class BillPayTest extends BaseTestFunctionality {
         Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
 
         //Get the first account
-        String account = overviewPage.getAccount1ID();
-        String balance = overviewPage.getAccount1Balance().replace("$","");
+        String account = overviewPage.getAccountList().getFirst();
+        String balance = overviewPage.getBalanceList().getFirst().replace("$","");
 
         //Navigate to Bill Pay page
         overviewPage.clickBillPayLink();
@@ -78,7 +78,7 @@ public class BillPayTest extends BaseTestFunctionality {
 
 
         //Check if the pay was successful
-        String currentBalance = overviewPage.getAccount1Balance().replace("$","");
+        String currentBalance = overviewPage.getBalanceList().getFirst().replace("$","");
         Assert.assertEquals(Double.parseDouble(currentBalance),
                 Double.parseDouble(balance) - Double.parseDouble(amount),
                 "Balance inconsistent");

@@ -31,9 +31,19 @@ public class TransferFundsPageActions extends MenuLinksActions{
         elements.fromAccountSelectField().selectByIndex(account - 1);
     }
 
+    public void selectFromAccount(String  account){
+        wait.until(d -> elements.fromAccountField().isDisplayed());
+        elements.fromAccountSelectField().selectByValue(account);
+    }
+
     public void selectToAccount(int account){
         wait.until(d -> elements.toAccountField().isDisplayed());
         elements.toAccountSelectField().selectByIndex(account - 1);
+    }
+
+    public void selectToAccount(String account){
+        wait.until(d -> elements.toAccountField().isDisplayed());
+        elements.toAccountSelectField().deselectByValue(account);
     }
 
     public List<String> getSelectedFromAccount(){

@@ -8,6 +8,8 @@ import org.testng.annotations.Test;
 import utilities.BaseTestFunctionality;
 import utilities.ConfigurationLoader;
 
+import java.util.List;
+
 import static tests.LoginTest.login;
 
 public class TransferFundsTest extends BaseTestFunctionality {
@@ -35,9 +37,9 @@ public class TransferFundsTest extends BaseTestFunctionality {
 
 
         //Check if the number of accounts
-        if(overviewPage.getNoOfAccounts() == 1){
+        if(overviewPage.getNoOfAccounts() == 1) {
             //Get account ID
-            String account = overviewPage.getAccount1ID();
+            String account = overviewPage.getAccountList().getFirst();
 
             //Go to Open New Account
             overviewPage.clickOpenNewAccountLink();
@@ -55,9 +57,9 @@ public class TransferFundsTest extends BaseTestFunctionality {
 
             //Check selected options
             System.out.println("Number of 'Account Type' selected is " + openNewAccountPage.getSelectedAccountType().size());
-            Assert.assertEquals(openNewAccountPage.getSelectedAccountType().getFirst(),"CHECKING","");
+            Assert.assertEquals(openNewAccountPage.getSelectedAccountType().getFirst(), "CHECKING", "");
             System.out.println("Number of 'Account' selected is " + openNewAccountPage.getSelectedAccount().size());
-            Assert.assertEquals(openNewAccountPage.getSelectedAccount().getFirst(),account,"");
+            Assert.assertEquals(openNewAccountPage.getSelectedAccount().getFirst(), account, "");
 
             //Click OPEN NEW ACCOUNT
             openNewAccountPage.clickOpenNewAccountButton();
@@ -73,17 +75,15 @@ public class TransferFundsTest extends BaseTestFunctionality {
             openNewAccountPage.clickAccountsOverviewLink();
 
             //Check if the new account is in the list
-            Assert.assertTrue(overviewPage.checkAccount(newAccount),"Account not found");
+            Assert.assertTrue(overviewPage.checkAccount(newAccount), "Account not found");
 
         }
 
 
         //Get the accounts balance
-        String account1ID = overviewPage.getAccount1ID();
-        String account2ID = overviewPage.getAccount2ID();
-        String account1Balance = overviewPage.getAccount1Balance().replace("$","");
-        String account2Balance = overviewPage.getAccount2Balance().replace("$","");
-        double expectedTotalValue = Double.parseDouble(account1Balance) + Double.parseDouble(account2Balance);
+        List<String> accounts = overviewPage.getAccountList();
+        List<String> balances = overviewPage.getBalanceList().stream().map(e -> e.replace("$","")).toList();
+        double expectedTotalValue = Double.parseDouble(balances.getFirst()) + Double.parseDouble(balances.get(1));
 
         //Navigate to Transfer Founds
         overviewPage.clickTransferFundsLink();
@@ -96,14 +96,14 @@ public class TransferFundsTest extends BaseTestFunctionality {
         //Fill in the transaction details
         String transferAmount = "100";
         transferFundsPage.typeAmount(transferAmount);
-        transferFundsPage.selectFromAccount(1);
+        transferFundsPage.selectFromAccount(accounts.getFirst());
         transferFundsPage.selectToAccount(2);
 
         //Check if the selected options are right
         Assert.assertEquals(transferFundsPage.getSelectedFromAccount().size(), 1);
         Assert.assertEquals(transferFundsPage.getSelectedToAccount().size(), 1);
-        Assert.assertEquals(account1ID, transferFundsPage.getSelectedFromAccount().getFirst());
-        Assert.assertEquals(account2ID, transferFundsPage.getSelectedToAccount().getFirst());
+        Assert.assertEquals(accounts.getFirst(), transferFundsPage.getSelectedFromAccount().getFirst());
+        Assert.assertEquals(accounts.get(1), transferFundsPage.getSelectedToAccount().getFirst());
 
         //Press Transfer
         transferFundsPage.clickTransferButton();
@@ -121,16 +121,15 @@ public class TransferFundsTest extends BaseTestFunctionality {
 
 
         //Check if the transaction was successful
-        String currentAccount1Balance = overviewPage.getAccount1Balance().replace("$","");
-        String currentAccount2Balance = overviewPage.getAccount2Balance().replace("$","");
-        double currentTotalValue = Double.parseDouble(currentAccount1Balance) + Double.parseDouble(currentAccount2Balance);
+        List<String> currentBalances = overviewPage.getBalanceList().stream().map(e -> e.replace("$","")).toList();
+        double currentTotalValue = Double.parseDouble(currentBalances.getFirst()) + Double.parseDouble(currentBalances.get(1));
 
         Assert.assertEquals(currentTotalValue, expectedTotalValue,"Sums don't match");
-        Assert.assertEquals(Double.parseDouble(account1Balance) - Double.parseDouble(transferAmount),
-                Double.parseDouble(currentAccount1Balance),
+        Assert.assertEquals(Double.parseDouble(balances.getFirst()) - Double.parseDouble(transferAmount),
+                Double.parseDouble(currentBalances.getFirst()),
                 "wrong amount extracted from account");
-        Assert.assertEquals(Double.parseDouble(account2Balance) + Double.parseDouble(transferAmount),
-                Double.parseDouble(currentAccount2Balance),
+        Assert.assertEquals(Double.parseDouble(balances.get(1)) + Double.parseDouble(transferAmount),
+                Double.parseDouble(currentBalances.get(1)),
                 "wrong amount extracted from account");
 
 

@@ -67,4 +67,10 @@
         </classes>
     </test>
 
+    <test name="Navigate the main menu">
+        <classes>
+            <class name="tests.NavigateTheMainMenuTest"/>
+        </classes>
+    </test>
+
 </suite>

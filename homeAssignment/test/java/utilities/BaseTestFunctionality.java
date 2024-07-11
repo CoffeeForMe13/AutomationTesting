@@ -70,6 +70,10 @@ public class BaseTestFunctionality {
         return driver.getTitle();
     }
 
+    public static String getPageTitle(WebDriver driver){
+        return driver.getTitle();
+    }
+
     private void captureAndSaveFailureScreenshot(String testName) {
         //Create a new folder, if it doesn't exist
         File screenshotDirectory = new File("Screenshots");

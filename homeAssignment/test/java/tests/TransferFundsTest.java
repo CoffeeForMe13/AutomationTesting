@@ -27,7 +27,7 @@ public class TransferFundsTest extends BaseTestFunctionality {
         ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
 
         //Login
-        login(configLoader, driver);
+        login(overviewPage, configLoader, driver);
 
         //Check the page title
         System.out.println(getPageTitle());

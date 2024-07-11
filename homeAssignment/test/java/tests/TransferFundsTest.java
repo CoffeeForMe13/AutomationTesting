@@ -44,7 +44,7 @@ public class TransferFundsTest extends BaseTestFunctionality {
 
             //Check page title
             System.out.println(getPageTitle());
-            Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Open Account"), "Overview page not loaded");
+            Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Open Account"), "Open Account page not loaded");
 
 
             //Set account type
@@ -55,9 +55,13 @@ public class TransferFundsTest extends BaseTestFunctionality {
 
             //Check selected options
             System.out.println("Number of 'Account Type' selected is " + openNewAccountPage.getSelectedAccountType().size());
-            Assert.assertEquals(openNewAccountPage.getSelectedAccountType().getFirst(),"CHECKING","");
+            Assert.assertEquals(openNewAccountPage.getSelectedAccountType().getFirst(),
+                    "CHECKING",
+                    "Wrong account type selected");
             System.out.println("Number of 'Account' selected is " + openNewAccountPage.getSelectedAccount().size());
-            Assert.assertEquals(openNewAccountPage.getSelectedAccount().getFirst(),account,"");
+            Assert.assertEquals(openNewAccountPage.getSelectedAccount().getFirst(),
+                    account,
+                    "Wrong account selected");
 
             //Click OPEN NEW ACCOUNT
             openNewAccountPage.clickOpenNewAccountButton();

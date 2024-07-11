@@ -29,7 +29,8 @@ public class OpenNewAccountTest extends BaseTestFunctionality {
 
         //Check the page title
         System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
+        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"),
+                "Overview page not loaded");
 
 
         //Get account ID
@@ -40,7 +41,8 @@ public class OpenNewAccountTest extends BaseTestFunctionality {
 
         //Check page title
         System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Open Account"), "Overview page not loaded");
+        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Open Account"),
+                "Open Account page not loaded");
 
 
         //Set account type
@@ -51,16 +53,20 @@ public class OpenNewAccountTest extends BaseTestFunctionality {
 
         //Check selected options
         System.out.println("Number of 'Account Type' selected is " + openNewAccountPage.getSelectedAccountType().size());
-        Assert.assertEquals(openNewAccountPage.getSelectedAccountType().getFirst(),"CHECKING","");
+        Assert.assertEquals(openNewAccountPage.getSelectedAccountType().getFirst(),
+                "CHECKING",
+                "Wrong account type selected");
         System.out.println("Number of 'Account' selected is " + openNewAccountPage.getSelectedAccount().size());
-        Assert.assertEquals(openNewAccountPage.getSelectedAccount().getFirst(),account,"");
+        Assert.assertEquals(openNewAccountPage.getSelectedAccount().getFirst(),
+                account,
+                "Wrong account selected");
 
         //Click OPEN NEW ACCOUNT
         openNewAccountPage.clickOpenNewAccountButton();
 
         //Check result message
-        Assert.assertTrue(openNewAccountPage.getResultMessage().
-                equalsIgnoreCase("Account Opened!"), "Account not created");
+        Assert.assertTrue(openNewAccountPage.getResultMessage().equalsIgnoreCase("Account Opened!"),
+                "Account not created");
 
         //Get new account number
         String newAccount = openNewAccountPage.getNewAccountNumber();
@@ -69,7 +75,8 @@ public class OpenNewAccountTest extends BaseTestFunctionality {
         openNewAccountPage.clickAccountsOverviewLink();
 
         //Check if the new account is in the list
-        Assert.assertTrue(overviewPage.checkAccount(newAccount),"Account not found");
+        Assert.assertTrue(overviewPage.checkAccount(newAccount),
+                "Account not found");
 
     }
 }

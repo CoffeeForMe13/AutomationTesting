@@ -1,5 +1,6 @@
 package tests;
 
+import actions.ErrorPageActions;
 import actions.HomePageActions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -17,6 +18,7 @@ public class FailedLoginTest extends BaseTestFunctionality {
 
         //Make initialization
         HomePageActions homePage = new HomePageActions(driver);
+        ErrorPageActions errorPage = new ErrorPageActions(driver);
 
         //Get registration data
         ConfigLoader configLoader = new ConfigLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
@@ -27,7 +29,7 @@ public class FailedLoginTest extends BaseTestFunctionality {
 
 
         //Check if registration was successful
-        Assert.assertTrue(homePage.getErrorMessage().equalsIgnoreCase(
+        Assert.assertTrue(errorPage.getErrorMessage().equalsIgnoreCase(
                 "The username and password could not be verified."),
                 "Account mismatch");
     }

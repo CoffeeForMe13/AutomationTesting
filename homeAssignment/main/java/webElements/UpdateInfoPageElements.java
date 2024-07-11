@@ -4,12 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class UpdateInfoPageElements extends MenuLinks {
+public class UpdateInfoPageElements {
 
     private final WebDriver driver;
 
     public UpdateInfoPageElements(WebDriver driver) {
-        super(driver);
         this.driver = driver;
     }
 

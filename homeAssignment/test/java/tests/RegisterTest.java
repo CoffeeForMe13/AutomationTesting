@@ -2,7 +2,6 @@ package tests;
 
 import actions.CustomerCreatedPageActions;
 import actions.HomePageActions;
-import actions.OverviewPageActions;
 import actions.SignUpPageActions;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -25,10 +24,10 @@ public class RegisterTest extends BaseTestFunctionality {
 //        overviewPage = new OverviewPageActions(driver);
 
         //SignUp
-        signUpActions(overviewPage, configLoader, driver);
+        signUpActions(configLoader, driver);
     }
 
-    public static void signUpActions(OverviewPageActions overviewPage, ConfigurationLoader configLoader, WebDriver driver) {
+    public static void signUpActions(ConfigurationLoader configLoader, WebDriver driver) {
 
         //Make initialization
         HomePageActions homePage = new HomePageActions(driver);

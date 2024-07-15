@@ -77,7 +77,7 @@ public class LoginTest extends BaseTestFunctionality {
                     "Unexpected behaviour");
 
             //Create account
-            signUpActions(overviewPage, configLoader, driver);
+            signUpActions(configLoader, driver);
 
             customerCreatedPage.clickAccountsOverviewLink();
 

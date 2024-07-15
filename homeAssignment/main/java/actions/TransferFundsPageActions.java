@@ -27,23 +27,23 @@ public class TransferFundsPageActions extends MenuLinksActions{
     }
 
     public void selectFromAccount(int account){
-        wait.until(d -> elements.fromAccountField().isDisplayed());
+        wait.until(_ -> elements.fromAccountField().isDisplayed());
         elements.fromAccountSelectField().selectByIndex(account - 1);
     }
 
     public void selectFromAccount(String  account){
-        wait.until(d -> elements.fromAccountField().isDisplayed());
+        wait.until(_ -> elements.fromAccountField().isDisplayed());
         elements.fromAccountSelectField().selectByValue(account);
     }
 
     public void selectToAccount(int account){
-        wait.until(d -> elements.toAccountField().isDisplayed());
+        wait.until(_ -> elements.toAccountField().isDisplayed());
         elements.toAccountSelectField().selectByIndex(account - 1);
     }
 
     public void selectToAccount(String account){
-        wait.until(d -> elements.toAccountField().isDisplayed());
-        elements.toAccountSelectField().deselectByValue(account);
+        wait.until(_ -> elements.toAccountField().isDisplayed());
+        elements.toAccountSelectField().selectByValue(account);
     }
 
     public List<String> getSelectedFromAccount(){
@@ -59,7 +59,7 @@ public class TransferFundsPageActions extends MenuLinksActions{
     }
 
     public String getTransactionResultMessage(){
-        wait.until(d -> elements.transactionResultMessage().isDisplayed());
+        wait.until(_ -> elements.transactionResultMessage().isDisplayed());
         return elements.transactionResultMessage().getText();
     }
 }

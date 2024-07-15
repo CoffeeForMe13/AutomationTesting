@@ -13,42 +13,42 @@ public class UpdateInfoPageActions extends MenuLinksActions {
     }
 
     public void emptyAddress(){
-        wait.until(d -> elements.addressField().isDisplayed());
+        wait.until(_ -> elements.addressField().isDisplayed());
         elements.addressField().clear();
     }
 
     public void emptyCity(){
-        wait.until(d -> elements.cityField().isDisplayed());
+        wait.until(_ -> elements.cityField().isDisplayed());
         elements.cityField().clear();
     }
 
     public void emptyState(){
-        wait.until(d -> elements.stateField().isDisplayed());
+        wait.until(_ -> elements.stateField().isDisplayed());
         elements.stateField().clear();
     }
 
     public void modifyAddress(String address){
-        wait.until(d -> elements.addressField().isDisplayed());
+        wait.until(_ -> elements.addressField().isDisplayed());
         elements.addressField().sendKeys(address);
     }
 
     public void modifyCity(String city){
-        wait.until(d -> elements.cityField().isDisplayed());
+        wait.until(_ -> elements.cityField().isDisplayed());
         elements.cityField().sendKeys(city);
     }
 
     public void modifyState(String state){
-        wait.until(d -> elements.stateField().isDisplayed());
+        wait.until(_ -> elements.stateField().isDisplayed());
         elements.stateField().sendKeys(state);
     }
 
     public void clickUpdateProfileButton(){
-        wait.until(d -> elements.updateProfileButton().isDisplayed());
+        wait.until(_ -> elements.updateProfileButton().isDisplayed());
         elements.updateProfileButton().click();
     }
 
     public String getProfileUpdateMessage(){
-        wait.until(d -> elements.profileUpdateMessage().isDisplayed());
+        wait.until(_ -> elements.profileUpdateMessage().isDisplayed());
         return elements.profileUpdateMessage().getText();
     }
 }

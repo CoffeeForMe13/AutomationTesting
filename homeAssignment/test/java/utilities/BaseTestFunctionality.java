@@ -1,5 +1,6 @@
 package utilities;
 
+import actions.OverviewPageActions;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
@@ -17,6 +18,8 @@ import java.io.File;
 public class BaseTestFunctionality {
 
     public WebDriver driver;
+    public OverviewPageActions overviewPage;
+
     private ExtentTest extentTest;
     private ScreenshotUtilities screenshotUtilities;
 
@@ -27,6 +30,8 @@ public class BaseTestFunctionality {
         screenshotUtilities = new ScreenshotUtilities(driver);
         driver.get("https://parabank.parasoft.com/parabank/index.htm");//open link
         driver.manage().window().maximize();
+
+        overviewPage = new OverviewPageActions(driver);
     }
 
     @AfterClass

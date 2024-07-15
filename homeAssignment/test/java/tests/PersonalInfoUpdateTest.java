@@ -16,11 +16,7 @@ public class PersonalInfoUpdateTest extends BaseTestFunctionality {
 
         //Create test
         initTest("Personal Info Update");
-
-        //Make initialization
-        OverviewPageActions overviewPage = new OverviewPageActions(driver);
-        UpdateInfoPageActions updateInfoPage = new UpdateInfoPageActions(driver);
-
+        
         //Get registration data
         ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
 

@@ -19,7 +19,6 @@ public class OpenNewAccountTest extends BaseTestFunctionality {
         initTest("Open new account");
 
         //Make initialization
-//        overviewPage = new OverviewPageActions(driver);
         OpenNewAccountPageActions openNewAccountPage = new OpenNewAccountPageActions(driver);
 
         //Get registration data

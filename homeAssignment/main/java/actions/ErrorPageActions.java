@@ -19,8 +19,8 @@ public class ErrorPageActions extends HomePageActions {
     }
 
     public String getErrorTitle(){
-        wait.until(_ -> elements.errorMessage().isDisplayed());
-        return elements.errorMessage().getText();
+        wait.until(_ -> elements.errorTitle().isDisplayed());
+        return elements.errorTitle().getText();
     }
 
     public String getErrorMessage(){

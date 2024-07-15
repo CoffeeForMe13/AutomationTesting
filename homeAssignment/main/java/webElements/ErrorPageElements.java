@@ -12,8 +12,12 @@ public class ErrorPageElements {
         this.driver=driver;
     }
 
-    public WebElement errorMessage(){
+    public WebElement errorTitle(){
         return driver.findElement(By.cssSelector("#rightPanel > .title"));
+    }
+
+    public WebElement errorMessage(){
+        return driver.findElement(By.cssSelector("#rightPanel > .error"));
     }
 
 }

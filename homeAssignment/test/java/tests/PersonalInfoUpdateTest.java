@@ -1,6 +1,5 @@
 package tests;
 
-import actions.OverviewPageActions;
 import actions.UpdateInfoPageActions;
 import org.testng.Assert;
 import org.testng.annotations.Test;

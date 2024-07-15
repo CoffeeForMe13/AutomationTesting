@@ -14,16 +14,19 @@ public class UpdateInfoPageActions extends MenuLinksActions {
 
     public void emptyAddress(){
         wait.until(_ -> elements.addressField().isDisplayed());
+        wait.until(_ -> !elements.addressField().getAttribute("value").isEmpty());
         elements.addressField().clear();
     }
 
     public void emptyCity(){
         wait.until(_ -> elements.cityField().isDisplayed());
+        wait.until(_ -> !elements.cityField().getAttribute("value").isEmpty());
         elements.cityField().clear();
     }
 
     public void emptyState(){
         wait.until(_ -> elements.stateField().isDisplayed());
+        wait.until(_ -> !elements.stateField().getAttribute("value").isEmpty());
         elements.stateField().clear();
     }
 

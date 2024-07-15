@@ -1,5 +1,6 @@
 package tests;
 
+import actions.CustomerCreatedPageActions;
 import actions.ErrorPageActions;
 import actions.HomePageActions;
 import actions.OverviewPageActions;
@@ -19,8 +20,8 @@ public class LoginTest extends BaseTestFunctionality {
         //Create test
         initTest("Log into Account");
 
-        //Make initialization
-        OverviewPageActions overviewPage = new OverviewPageActions(driver);
+//        //Make initialization
+//        overviewPage = new OverviewPageActions(driver);
 
         //Get registration data
         ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
@@ -63,6 +64,7 @@ public class LoginTest extends BaseTestFunctionality {
         } catch (Exception e){
             //Make initialization
             ErrorPageActions errorPage = new ErrorPageActions(driver);
+            CustomerCreatedPageActions customerCreatedPage = new CustomerCreatedPageActions(driver);
 
             //Check the page title
             System.out.println(getPageTitle(driver));
@@ -74,24 +76,21 @@ public class LoginTest extends BaseTestFunctionality {
             Assert.assertTrue(errorPage.getErrorTitle().equalsIgnoreCase("Error!"),
                     "Unexpected behaviour");
 
-            /* ***************************** <Create Account> ***************************** */
-            //Navigate to Sign Up page
-            errorPage.clickRegisterLink();
-
-            //Check the page title
-            System.out.println(getPageTitle(driver));
-            Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Register for Free Online Account Access"),
-                    "Register page not loaded");
-
             //Create account
             signUpActions(overviewPage, configLoader, driver);
-            /* ***************************** </Create Account> ***************************** */
 
-            //Log out
-            overviewPage.clickLogOutLink();
+            customerCreatedPage.clickAccountsOverviewLink();
 
-            //Log in
-            login(configLoader,driver);
+            //Check to page title
+            System.out.println(getPageTitle(driver));
+            Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
+
+            //Verify welcome message
+            Assert.assertTrue(overviewPage.getWelcomeMessage().equalsIgnoreCase("Welcome " +
+                            configLoader.getProperty("firstName") +
+                            " " +
+                            configLoader.getProperty("lastName")),
+                    "Account mismatch");
         }
     }
 }

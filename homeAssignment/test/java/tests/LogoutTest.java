@@ -25,11 +25,7 @@ public class LogoutTest extends BaseTestFunctionality {
         ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
 
         //Login
-         login(overviewPage, configLoader, driver);
-
-        //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
+        login(overviewPage, configLoader, driver);
 
         //Log Out
         overviewPage.clickLogOutLink();

@@ -28,7 +28,7 @@ public class FailedLoginTest extends BaseTestFunctionality {
         homePage.clickSubmit();
 
 
-        //Check if registration was successful
+        //Check the error message
         Assert.assertTrue(errorPage.getErrorMessage().equalsIgnoreCase(
                 "The username and password could not be verified."),
                 "Account mismatch");

@@ -2,6 +2,7 @@ package tests;
 
 import actions.BillPayPageActions;
 import actions.OverviewPageActions;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.BaseTestFunctionality;
@@ -17,9 +18,8 @@ public class BillPayTest extends BaseTestFunctionality {
         //Create test
         initTest("Pay Bill");
 
-        //Make initialization
-        OverviewPageActions overviewPage = new OverviewPageActions(driver);
-        BillPayPageActions billPayPage = new BillPayPageActions(driver);
+//        //Make initialization
+//        OverviewPageActions overviewPage = new OverviewPageActions(driver);
 
         //Get registration data
         ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
@@ -35,17 +35,34 @@ public class BillPayTest extends BaseTestFunctionality {
         String account = overviewPage.getAccountList().getFirst();
         String balance = overviewPage.getBalanceList().getFirst().replace("$","");
 
-        //Navigate to Bill Pay page
-        overviewPage.clickBillPayLink();
-
-        //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Bill Pay"), "Bill Pay page not loaded");
 
 
         //Transaction details
         String recipientAccount = "32561";
         String amount = "125.5";
+
+        makePayment(overviewPage, driver, configLoader, recipientAccount, amount, account);
+
+        //Check if the pay was successful
+        String currentBalance = overviewPage.getBalanceList().getFirst().replace("$","");
+        Assert.assertEquals(Double.parseDouble(currentBalance),
+                Double.parseDouble(balance) - Double.parseDouble(amount),
+                "Balance inconsistent");
+
+
+    }
+
+    public static void makePayment(OverviewPageActions overviewPage, WebDriver driver, ConfigurationLoader configLoader, String recipientAccount, String amount, String account) {
+
+        //Make initialization
+        BillPayPageActions billPayPage = new BillPayPageActions(driver);
+
+        //Navigate to Bill Pay page
+        overviewPage.clickBillPayLink();
+
+        //Check the page title
+        System.out.println(getPageTitle(driver));
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Bill Pay"), "Bill Pay page not loaded");
 
         //Enter bill data
         billPayPage.enterPayeeName(configLoader.getProperty("firstName") + " " + configLoader.getProperty("lastName"));
@@ -61,7 +78,7 @@ public class BillPayTest extends BaseTestFunctionality {
 
         //Check the selected From Account option
         Assert.assertEquals(billPayPage.getSelectFromAccount().size(),1,"Too many options selected");
-        Assert.assertEquals(billPayPage.getSelectFromAccount().getFirst(),account,"Account mismatch");
+        Assert.assertEquals(billPayPage.getSelectFromAccount().getFirst(), account,"Account mismatch");
 
         //Click Send Payment
         billPayPage.clickSendPayment();
@@ -73,16 +90,8 @@ public class BillPayTest extends BaseTestFunctionality {
         billPayPage.clickAccountsOverviewLink();
 
         //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
-
-
-        //Check if the pay was successful
-        String currentBalance = overviewPage.getBalanceList().getFirst().replace("$","");
-        Assert.assertEquals(Double.parseDouble(currentBalance),
-                Double.parseDouble(balance) - Double.parseDouble(amount),
-                "Balance inconsistent");
-
+        System.out.println(getPageTitle(driver));
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
 
     }
 }

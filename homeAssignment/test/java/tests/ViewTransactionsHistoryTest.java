@@ -26,7 +26,6 @@ public class ViewTransactionsHistoryTest extends BaseTestFunctionality {
         initTest("View transaction history");
 
         //Make initialization
-//        OverviewPageActions overviewPage = new OverviewPageActions(driver);
         OpenNewAccountPageActions openNewAccountPage = new OpenNewAccountPageActions(driver);
 
         //Get registration data
@@ -50,13 +49,17 @@ public class ViewTransactionsHistoryTest extends BaseTestFunctionality {
 
         //Declare transfer amount
         String transferAmount = "111";
+
         //Transfer funds
         transferFunds(overviewPage, driver, transferAmount, account1ID, newAccount);
+
+        // Get balance before bill payment
+        String initialBalance = overviewPage.getBalanceList().getFirst().replace("$","");
 
         //Transaction details
         String recipientAccount = "32561";
         String billAmount = "125.5";
-        makePayment(overviewPage, driver, configLoader, recipientAccount, billAmount, account1ID);
+        makePayment(overviewPage, driver, configLoader, recipientAccount, initialBalance, billAmount, account1ID);
 
 
         // Get balance after transactions
@@ -65,7 +68,7 @@ public class ViewTransactionsHistoryTest extends BaseTestFunctionality {
         verifyTransactions(overviewPage, driver, configLoader, account1ID, account1Balance, transferAmount, billAmount);
     }
 
-    private static void verifyTransactions(OverviewPageActions overviewPage,
+    public static void verifyTransactions(OverviewPageActions overviewPage,
                                            WebDriver driver,
                                            ConfigurationLoader configLoader,
                                            String account1ID,

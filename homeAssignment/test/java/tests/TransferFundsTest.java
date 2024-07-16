@@ -23,7 +23,6 @@ public class TransferFundsTest extends BaseTestFunctionality {
         initTest("Transfer founds between accounts");
 
         //Make initialization
-//        overviewPage = new OverviewPageActions(driver);
         OpenNewAccountPageActions openNewAccountPage = new OpenNewAccountPageActions(driver);
 
         //Get registration data

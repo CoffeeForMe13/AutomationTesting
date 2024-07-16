@@ -18,9 +18,6 @@ public class BillPayTest extends BaseTestFunctionality {
         //Create test
         initTest("Pay Bill");
 
-//        //Make initialization
-//        OverviewPageActions overviewPage = new OverviewPageActions(driver);
-
         //Get registration data
         ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
 
@@ -33,7 +30,7 @@ public class BillPayTest extends BaseTestFunctionality {
 
         //Get the first account
         String account = overviewPage.getAccountList().getFirst();
-        String balance = overviewPage.getBalanceList().getFirst().replace("$","");
+        String initialBalance = overviewPage.getBalanceList().getFirst().replace("$","");
 
 
 
@@ -41,18 +38,11 @@ public class BillPayTest extends BaseTestFunctionality {
         String recipientAccount = "32561";
         String amount = "125.5";
 
-        makePayment(overviewPage, driver, configLoader, recipientAccount, amount, account);
-
-        //Check if the pay was successful
-        String currentBalance = overviewPage.getBalanceList().getFirst().replace("$","");
-        Assert.assertEquals(Double.parseDouble(currentBalance),
-                Double.parseDouble(balance) - Double.parseDouble(amount),
-                "Balance inconsistent");
-
+        makePayment(overviewPage, driver, configLoader, recipientAccount, initialBalance, amount, account);
 
     }
 
-    public static void makePayment(OverviewPageActions overviewPage, WebDriver driver, ConfigurationLoader configLoader, String recipientAccount, String amount, String account) {
+    public static void makePayment(OverviewPageActions overviewPage, WebDriver driver, ConfigurationLoader configLoader, String recipientAccount, String initialBalance, String amount, String account) {
 
         //Make initialization
         BillPayPageActions billPayPage = new BillPayPageActions(driver);
@@ -93,5 +83,10 @@ public class BillPayTest extends BaseTestFunctionality {
         System.out.println(getPageTitle(driver));
         Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
 
+        //Check if the pay was successful
+        String currentBalance = overviewPage.getBalanceList().getFirst().replace("$","");
+        Assert.assertEquals(Double.parseDouble(currentBalance),
+                Double.parseDouble(initialBalance) - Double.parseDouble(amount),
+                "Balance inconsistent");
     }
 }

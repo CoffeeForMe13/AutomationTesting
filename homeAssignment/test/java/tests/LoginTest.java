@@ -83,7 +83,8 @@ public class LoginTest extends BaseTestFunctionality {
 
             //Check to page title
             System.out.println(getPageTitle(driver));
-            Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
+            Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Accounts Overview"),
+                    "Overview page not loaded");
 
             //Verify welcome message
             Assert.assertTrue(overviewPage.getWelcomeMessage().equalsIgnoreCase("Welcome " +

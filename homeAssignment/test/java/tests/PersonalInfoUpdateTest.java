@@ -26,7 +26,8 @@ public class PersonalInfoUpdateTest extends BaseTestFunctionality {
 
         //Check the page title
         System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
+        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"),
+                "Overview page not loaded");
 
 
         //New info
@@ -49,7 +50,8 @@ public class PersonalInfoUpdateTest extends BaseTestFunctionality {
 
         //Check the page title
         System.out.println(getPageTitle(driver));
-        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Update Profile"), "Update Profile page not loaded");
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Update Profile"),
+                "Update Profile page not loaded");
 
 
         updateInfoPage.emptyAddress();
@@ -62,13 +64,15 @@ public class PersonalInfoUpdateTest extends BaseTestFunctionality {
 
         //Check result message
         System.out.println(updateInfoPage.getProfileUpdateMessage());
-        Assert.assertEquals(updateInfoPage.getProfileUpdateMessage(),"Profile Updated","Update Profile failed");
+        Assert.assertEquals(updateInfoPage.getProfileUpdateMessage(),"Profile Updated",
+                "Update Profile failed");
 
         updateInfoPage.clickAccountsOverviewLink();
 
         //Check to page title
         System.out.println(getPageTitle(driver));
-        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Accounts Overview"),
+                "Overview page not loaded");
 
     }
 }

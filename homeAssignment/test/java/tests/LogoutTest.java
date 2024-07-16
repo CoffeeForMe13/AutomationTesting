@@ -1,7 +1,6 @@
 package tests;
 
 import actions.HomePageActions;
-import actions.OverviewPageActions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.BaseTestFunctionality;
@@ -19,17 +18,12 @@ public class LogoutTest extends BaseTestFunctionality {
 
         //Make initialization
         HomePageActions homePage = new HomePageActions(driver);
-        OverviewPageActions overviewPage = new OverviewPageActions(driver);
 
         //Get registration data
         ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
 
         //Login
-        login(configLoader, driver);
-
-        //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
+        login(overviewPage, configLoader, driver);
 
         //Log Out
         overviewPage.clickLogOutLink();

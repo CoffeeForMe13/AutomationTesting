@@ -1,7 +1,9 @@
 package tests;
 
 import actions.AccountActivityPageActions;
+import actions.OpenNewAccountPageActions;
 import actions.OverviewPageActions;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.BaseTestFunctionality;
@@ -9,7 +11,10 @@ import utilities.ConfigurationLoader;
 
 import java.util.List;
 
+import static tests.BillPayTest.makePayment;
 import static tests.LoginTest.login;
+import static tests.OpenNewAccountTest.getNewAccount;
+import static tests.TransferFundsTest.transferFunds;
 
 public class ViewTransactionsHistoryTest extends BaseTestFunctionality {
 
@@ -21,30 +26,62 @@ public class ViewTransactionsHistoryTest extends BaseTestFunctionality {
         initTest("View transaction history");
 
         //Make initialization
-        OverviewPageActions overviewPage = new OverviewPageActions(driver);
-        AccountActivityPageActions accountActivityPage = new AccountActivityPageActions(driver);
+//        OverviewPageActions overviewPage = new OverviewPageActions(driver);
+        OpenNewAccountPageActions openNewAccountPage = new OpenNewAccountPageActions(driver);
 
         //Get registration data
         ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
 
         //Login
-        login(configLoader, driver);
+        login(overviewPage, configLoader, driver);
 
         //Check the page title
         System.out.println(getPageTitle());
         Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"), "Overview page not loaded");
 
 
-        //Get the account details
-        String account1ID = overviewPage.getAccount1ID();
-        String account1Balance = overviewPage.getAccount1Balance();
+        //Get the account details of the first account
+        String account1ID = overviewPage.getAccountList().getFirst();
 
-        //Open account info dor the first account
-        overviewPage.clickAccount1ID();
+
+
+        //Open new account
+        String newAccount = getNewAccount(overviewPage, openNewAccountPage, driver);
+
+        //Declare transfer amount
+        String transferAmount = "111";
+        //Transfer funds
+        transferFunds(overviewPage, driver, transferAmount, account1ID, newAccount);
+
+        //Transaction details
+        String recipientAccount = "32561";
+        String billAmount = "125.5";
+        makePayment(overviewPage, driver, configLoader, recipientAccount, billAmount, account1ID);
+
+
+        // Get balance after transactions
+        String account1Balance = overviewPage.getBalanceList().getFirst();
+
+        verifyTransactions(overviewPage, driver, configLoader, account1ID, account1Balance, transferAmount, billAmount);
+    }
+
+    private static void verifyTransactions(OverviewPageActions overviewPage,
+                                           WebDriver driver,
+                                           ConfigurationLoader configLoader,
+                                           String account1ID,
+                                           String account1Balance,
+                                           String transferAmount,
+                                           String billAmount) {
+
+        //Make initialization
+        AccountActivityPageActions accountActivityPage = new AccountActivityPageActions(driver);
+
+        //Open account info for the first account
+        overviewPage.clickAccount(account1ID);
 
         //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Account Activity"), "Account Activity page not loaded");
+        System.out.println(getPageTitle(driver));
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Account Activity"), "Account Activity page not loaded");
 
 
         //Check account details
@@ -72,30 +109,33 @@ public class ViewTransactionsHistoryTest extends BaseTestFunctionality {
         }
 
 
-
         //Check account transactions
         List<String> transactions = accountActivityPage.getTableRowsToList();
-        boolean containsInitialTransaction = false;
+        boolean openAccountTransaction = false;
         boolean containsFoundsTransfer = false;
         boolean containsBillPayment = false;
 
         for (String transaction : transactions) {
-            if (transaction.contains("Funds Transfer Sent $100.00") && containsInitialTransaction){
+            if (transaction.contains("Funds Transfer Sent $" + transferAmount) &&
+                    openAccountTransaction){
                 containsFoundsTransfer = true;
             }
             if (transaction.contains("Funds Transfer Sent $100.00")){
-                containsInitialTransaction = true;
+                openAccountTransaction = true;
             }
-            if (transaction.contains("Bill Payment to " + configLoader.getProperty("firstName") + " " + configLoader.getProperty("lastName") + " " + "$125.50")){
+            if (transaction.contains("Bill Payment to " + configLoader.getProperty("firstName") + " " + configLoader.getProperty("lastName") + " $" + billAmount)){
                 containsBillPayment = true;
             }
         }
 
-        System.out.println("Initial transaction found - " + containsInitialTransaction);
-        Assert.assertTrue(containsInitialTransaction,"Initial transaction not found");
+        System.out.println("Initial transaction found - " + openAccountTransaction);
+        Assert.assertTrue(openAccountTransaction,
+                "Open Account not found");
         System.out.println("Funds Transfer found - " + containsFoundsTransfer);
-        Assert.assertTrue(containsFoundsTransfer,"Funds Transfer not found");
+        Assert.assertTrue(containsFoundsTransfer,
+                "Funds Transfer not found");
         System.out.println("Bill Payment found - " + containsBillPayment);
-        Assert.assertTrue(containsBillPayment,"Bill Payment not found");
+        Assert.assertTrue(containsBillPayment,
+                "Bill Payment not found");
     }
 }

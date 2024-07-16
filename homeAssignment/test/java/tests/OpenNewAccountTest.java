@@ -2,6 +2,7 @@ package tests;
 
 import actions.OpenNewAccountPageActions;
 import actions.OverviewPageActions;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.BaseTestFunctionality;
@@ -18,21 +19,19 @@ public class OpenNewAccountTest extends BaseTestFunctionality {
         initTest("Open new account");
 
         //Make initialization
-        OverviewPageActions overviewPage = new OverviewPageActions(driver);
         OpenNewAccountPageActions openNewAccountPage = new OpenNewAccountPageActions(driver);
 
         //Get registration data
         ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
 
         //Login
-        login(configLoader, driver);
+        login(overviewPage, configLoader, driver);
 
-        //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"),
-                "Overview page not loaded");
+        //Open new account
+        getNewAccount(overviewPage, openNewAccountPage, driver);
+    }
 
-
+    public static String getNewAccount(OverviewPageActions overviewPage, OpenNewAccountPageActions openNewAccountPage, WebDriver driver) {
         //Get account ID
         String account = overviewPage.getAccount1ID();
 
@@ -40,8 +39,8 @@ public class OpenNewAccountTest extends BaseTestFunctionality {
         overviewPage.clickOpenNewAccountLink();
 
         //Check page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Open Account"),
+        System.out.println(getPageTitle(driver));
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Open Account"),
                 "Open Account page not loaded");
 
 
@@ -69,14 +68,15 @@ public class OpenNewAccountTest extends BaseTestFunctionality {
                 "Account not created");
 
         //Get new account number
-        String newAccount = openNewAccountPage.getNewAccountNumber();
+        String newAccountNumber = openNewAccountPage.getNewAccountNumber();
 
         //Go to overview page
         openNewAccountPage.clickAccountsOverviewLink();
 
         //Check if the new account is in the list
-        Assert.assertTrue(overviewPage.checkAccount(newAccount),
+        Assert.assertTrue(overviewPage.checkAccount(newAccountNumber),
                 "Account not found");
 
+        return newAccountNumber;
     }
 }

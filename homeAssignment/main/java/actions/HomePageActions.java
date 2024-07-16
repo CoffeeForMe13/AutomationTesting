@@ -31,10 +31,6 @@ public class HomePageActions {
         elements.forgotLoginInfoLink().click();
     }
 
-    public String getErrorMessage(){
-        return elements.errorMessage().getText();
-    }
-
     public String getATMServicesText(){
         return elements.ATMServices().getText();
     }

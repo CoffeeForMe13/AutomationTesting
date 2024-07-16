@@ -5,12 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class BillPayPageElements extends MenuLinks {
+public class BillPayPageElements{
 
     private final WebDriver driver;
 
     public BillPayPageElements(WebDriver driver) {
-        super(driver);
         this.driver = driver;
     }
 
@@ -50,9 +49,6 @@ public class BillPayPageElements extends MenuLinks {
         return driver.findElement(By.cssSelector("input[name='amount']"));
     }
 
-//    public WebElement fromAccountField(){
-//        return driver.findElement(By.cssSelector("input[name='fromAccountId']"));
-//    }
     public Select fromAccountField(){
         return new Select(driver.findElement(By.cssSelector("select[name='fromAccountId']")));
     }

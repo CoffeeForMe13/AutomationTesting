@@ -17,23 +17,23 @@ public class AccountActivityPageActions extends MenuLinksActions {
     }
 
     public String getAccountID(){
-        wait.until(d -> elements.transactionHistoryTableElement().isDisplayed());
-        wait.until(d -> elements.accountNumber().isDisplayed());
+        wait.until(_ -> elements.transactionHistoryTableElement().isDisplayed());
+        wait.until(_ -> elements.accountNumber().isDisplayed());
         return elements.accountNumber().getText();
     }
 
     public String getAccountType(){
-        wait.until(d -> elements.accountType().isDisplayed());
+        wait.until(_ -> elements.accountType().isDisplayed());
         return elements.accountType().getText();
     }
 
     public String getAccountBalance(){
-        wait.until(d -> elements.accountBalance().isDisplayed());
+        wait.until(_ -> elements.accountBalance().isDisplayed());
         return elements.accountBalance().getText();
     }
 
     public String getAccountAvailableBalance(){
-        wait.until(d -> elements.accountAvailableBalance().isDisplayed());
+        wait.until(_ -> elements.accountAvailableBalance().isDisplayed());
         return elements.accountAvailableBalance().getText();
     }
 

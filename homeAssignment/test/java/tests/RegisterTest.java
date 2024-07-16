@@ -1,12 +1,13 @@
 package tests;
 
+import actions.CustomerCreatedPageActions;
 import actions.HomePageActions;
-import actions.OverviewPageActions;
 import actions.SignUpPageActions;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import utile.ConfigLoader;
 import utilities.BaseTestFunctionality;
+import utilities.ConfigurationLoader;
 
 public class RegisterTest extends BaseTestFunctionality {
 
@@ -16,20 +17,31 @@ public class RegisterTest extends BaseTestFunctionality {
         //Create test
         initTest("Register Account");
 
+        //Get registration data
+        ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
+
+        //Make initialization
+//        overviewPage = new OverviewPageActions(driver);
+
+        //SignUp
+        signUpActions(configLoader, driver);
+    }
+
+    public static void signUpActions(ConfigurationLoader configLoader, WebDriver driver) {
+
         //Make initialization
         HomePageActions homePage = new HomePageActions(driver);
-        SignUpPageActions signUpPage = new SignUpPageActions(driver);
-        OverviewPageActions overviewPage = new OverviewPageActions(driver);
+        CustomerCreatedPageActions customerCreatedPage = new CustomerCreatedPageActions(driver);
 
         //Navigate to Sign Up page
         homePage.clickRegisterLink();
 
         //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Register for Free Online Account Access"), "Register page not loaded");
-
-        //Get registration data
-        ConfigLoader configLoader = new ConfigLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
+        System.out.println(getPageTitle(driver));
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Register for Free Online Account Access"),
+                "Register page not loaded");
+        //Make initialization
+        SignUpPageActions signUpPage = new SignUpPageActions(driver);
 
         signUpPage.enterFirstName(configLoader.getProperty("firstName"));
         signUpPage.enterLastName(configLoader.getProperty("lastName"));
@@ -45,11 +57,14 @@ public class RegisterTest extends BaseTestFunctionality {
         signUpPage.clickRegister();
 
         //Check if registration was successful
-        System.out.println(overviewPage.getWelcomeMessage());
-        Assert.assertTrue(overviewPage.getWelcomeMessage().equalsIgnoreCase("Welcome " +
+        System.out.println(customerCreatedPage.getWelcomeMessage());
+        Assert.assertTrue(customerCreatedPage.getWelcomeMessage().equalsIgnoreCase("Welcome " +
                 configLoader.getProperty("firstName") +
                 " " +
-                configLoader.getProperty("lastName")),"Account mismatch");
-
+                configLoader.getProperty("lastName")),
+                "Account mismatch");
+        Assert.assertTrue(customerCreatedPage.getWelcomeTitle().equalsIgnoreCase("Welcome " +
+                configLoader.getProperty("userName")),
+                "Account mismatch");
     }
 }

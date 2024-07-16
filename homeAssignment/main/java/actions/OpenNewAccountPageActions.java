@@ -30,7 +30,7 @@ public class OpenNewAccountPageActions extends MenuLinksActions{
     }
 
     public void selectAccount(String account){
-        wait.until(d -> elements.defaultAccountOption().isDisplayed());
+        wait.until(_ -> elements.defaultAccountOption().isDisplayed());
         elements.account().selectByValue(account);
     }
 
@@ -39,12 +39,12 @@ public class OpenNewAccountPageActions extends MenuLinksActions{
     }
 
     public void clickOpenNewAccountButton(){
-        wait.until(d -> elements.openNewAccountButton().isDisplayed());
+        wait.until(_ -> elements.openNewAccountButton().isDisplayed());
         elements.openNewAccountButton().click();
     }
 
     public String getResultMessage(){
-        wait.until(d -> elements.resultMessage().isDisplayed());
+        wait.until(_ -> elements.resultMessage().isDisplayed());
         return elements.resultMessage().getText();
     }
 

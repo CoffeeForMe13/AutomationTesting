@@ -4,12 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class CustomerLookupPageElements extends MenuLinks {
+public class CustomerLookupPageElements{
 
     private final WebDriver driver;
 
     public CustomerLookupPageElements(WebDriver driver) {
-        super(driver);
         this.driver = driver;
     }
 

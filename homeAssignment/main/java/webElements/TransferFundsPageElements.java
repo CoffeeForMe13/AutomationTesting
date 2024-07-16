@@ -7,12 +7,11 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class TransferFundsPageElements extends MenuLinks {
+public class TransferFundsPageElements {
 
     private final WebDriver driver;
 
     public TransferFundsPageElements(WebDriver driver) {
-        super(driver);
         this.driver = driver;
     }
 

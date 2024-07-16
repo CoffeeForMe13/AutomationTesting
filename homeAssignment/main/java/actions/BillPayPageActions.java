@@ -52,7 +52,7 @@ public class BillPayPageActions extends MenuLinksActions {
     }
 
     public void selectFromAccount(String account){
-        wait.until(d -> elements.fromAccountDefaultOption().isDisplayed());
+        wait.until(_ -> elements.fromAccountDefaultOption().isDisplayed());
         elements.fromAccountField().selectByValue(account);
     }
 
@@ -65,7 +65,7 @@ public class BillPayPageActions extends MenuLinksActions {
     }
 
     public String getPaymentMessage(){
-        wait.until(d -> elements.paymentMessage().isDisplayed());
+        wait.until(_ -> elements.paymentMessage().isDisplayed());
         return elements.paymentMessage().getText();
     }
 

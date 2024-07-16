@@ -5,12 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class OpenNewAccountPageElements extends MenuLinks{
+public class OpenNewAccountPageElements {
 
     private final WebDriver driver;
 
     public OpenNewAccountPageElements(WebDriver driver){
-        super(driver);
         this.driver = driver;
     }
 

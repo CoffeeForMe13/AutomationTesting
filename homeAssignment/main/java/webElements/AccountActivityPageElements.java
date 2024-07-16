@@ -6,12 +6,11 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class AccountActivityPageElements extends MenuLinks {
+public class AccountActivityPageElements{
 
     private final WebDriver driver;
 
     public AccountActivityPageElements(WebDriver driver) {
-        super(driver);
         this.driver = driver;
     }
 

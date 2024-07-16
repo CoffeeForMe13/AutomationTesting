@@ -1,6 +1,8 @@
 package tests;
 
+import actions.OverviewPageActions;
 import actions.UpdateInfoPageActions;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.BaseTestFunctionality;
@@ -28,16 +30,16 @@ public class PersonalInfoUpdateTest extends BaseTestFunctionality {
 
 
         //New info
-        String newAddress = "Long Street";
-        String newCity = "Lost Angels";
-        String newState = "Bella Rosa";
+        String newAddress = configLoader.getProperty("newAddress");
+        String newCity = configLoader.getProperty("newCity");
+        String newState = configLoader.getProperty("newState");
 
         //Update personal info
-        updatePersonalInfo(newAddress, newCity, newState);
+        updatePersonalInfo(overviewPage, driver, newAddress, newCity, newState);
 
     }
 
-    private void updatePersonalInfo(String newAddress, String newCity, String newState) {
+    public static void updatePersonalInfo(OverviewPageActions overviewPage, WebDriver driver, String newAddress, String newCity, String newState) {
 
         //Make initialization
         UpdateInfoPageActions updateInfoPage = new UpdateInfoPageActions(driver);
@@ -46,8 +48,8 @@ public class PersonalInfoUpdateTest extends BaseTestFunctionality {
         overviewPage.clickUpdateContactInfoLink();
 
         //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Update Profile"), "Update Profile page not loaded");
+        System.out.println(getPageTitle(driver));
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Update Profile"), "Update Profile page not loaded");
 
 
         updateInfoPage.emptyAddress();

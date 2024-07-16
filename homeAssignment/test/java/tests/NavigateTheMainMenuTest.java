@@ -8,7 +8,12 @@ import utilities.ConfigurationLoader;
 
 import java.util.List;
 
+import static tests.BillPayTest.makePayment;
 import static tests.LoginTest.login;
+import static tests.OpenNewAccountTest.getNewAccount;
+import static tests.PersonalInfoUpdateTest.updatePersonalInfo;
+import static tests.TransferFundsTest.transferFunds;
+import static tests.ViewTransactionsHistoryTest.verifyTransactions;
 
 public class NavigateTheMainMenuTest extends BaseTestFunctionality {
 
@@ -20,180 +25,172 @@ public class NavigateTheMainMenuTest extends BaseTestFunctionality {
 
         //Make initialization
         HomePageActions homePage = new HomePageActions(driver);
-        SignUpPageActions signUpPage = new SignUpPageActions(driver);
-        OverviewPageActions overviewPage = new OverviewPageActions(driver);
         OpenNewAccountPageActions openNewAccountPage = new OpenNewAccountPageActions(driver);
-        TransferFundsPageActions transferFundsPage = new TransferFundsPageActions(driver);
-        BillPayPageActions billPayPage = new BillPayPageActions(driver);
-        FindTransactionsPageActions findTransactionsPage = new FindTransactionsPageActions(driver);
-        UpdateInfoPageActions updateInfoPage = new UpdateInfoPageActions(driver);
         RequestLoanPageActions requestLoanPage = new RequestLoanPageActions(driver);
 
-        /* ********************************************************************************************************** */
-//        //Navigate to Sign Up page
-//        homePage.clickRegisterLink();
-//
-//        //Check the page title
-//        System.out.println(getPageTitle());
-//        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Register for Free Online Account Access"), "Register page not loaded");
-//
         //Get registration data
-        ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MateiOlaru.properties");
-//
-//        signUpPage.enterFirstName(configLoader.getProperty("firstName"));
-//        signUpPage.enterLastName(configLoader.getProperty("lastName"));
-//        signUpPage.enterAddress(configLoader.getProperty("address"));
-//        signUpPage.enterCity(configLoader.getProperty("city"));
-//        signUpPage.enterState(configLoader.getProperty("state"));
-//        signUpPage.enterZipCode(configLoader.getProperty("zipCode"));
-//        signUpPage.enterPhoneNumber(configLoader.getProperty("phoneNumber"));
-//        signUpPage.enterSSN(configLoader.getProperty("ssn"));
-//        signUpPage.enterUsername(configLoader.getProperty("userName"));
-//        signUpPage.enterPassword(configLoader.getProperty("password"));
-//        signUpPage.enterConfirm(configLoader.getProperty("confirmPassword"));
-//        signUpPage.clickRegister();
-//
-//        //Check if registration was successful
-//        System.out.println(overviewPage.getWelcomeMessage());
-//        Assert.assertTrue(overviewPage.getWelcomeMessage().equalsIgnoreCase("Welcome " +
-//                configLoader.getProperty("firstName") +
-//                " " +
-//                configLoader.getProperty("lastName")), "Account mismatch");
+        ConfigurationLoader configLoader = new ConfigurationLoader("homeAssignment/test/resources/properties/MirceaGrad.properties");
+
+        /* ************************************ Login / Sign Up ************************************ */
+
+        login(overviewPage, configLoader, driver);
 
 
-        /* ********************************************************************************************************** */
-//        //Log Out
-//        overviewPage.clickLogOutLink();
-//
-//        //Check if log out was successful
-//        String expectedText = "atm services";
-//        String ATMServicesText = homePage.getATMServicesText();
-//
-//        Assert.assertEquals(ATMServicesText.toLowerCase(), expectedText.toLowerCase());
+        /* ************************************ Open New Account ************************************ */
 
 
-        /* ********************************************************************************************************** */
-        //Login
-        login(configLoader, driver);
+        //Open new account
+        String newAccount = getNewAccount(overviewPage, openNewAccountPage, driver);
 
-        //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Accounts Overview"),
+
+        /* ************************************ Accounts Overview ************************************ */
+
+
+
+        /* ************************************ Transfer Funds ************************************ */
+
+        //Get the accounts balance
+        List<String> accounts = overviewPage.getAccountList();
+        List<String> balances = overviewPage.getBalanceList().stream().map(e -> e.replace("$","")).toList();
+
+        String newAccountBalance = balances.get(accounts.indexOf(newAccount));
+        double expectedTotalValue = Double.parseDouble(balances.getFirst()) + Double.parseDouble(newAccountBalance);
+
+
+        //Declare transfer amount
+        String transferAmount = "111";
+
+        //Transfer funds
+        transferFunds(overviewPage, driver, transferAmount, accounts.getFirst(), newAccount);
+
+
+        //Check if the transaction was successful
+        List<String> currentBalances = overviewPage.getBalanceList().stream().map(e -> e.replace("$","")).toList();
+        String newCurrentAccountBalance = currentBalances.get(accounts.indexOf(newAccount));
+        double currentTotalValue = Double.parseDouble(currentBalances.getFirst()) + Double.parseDouble(newCurrentAccountBalance);
+
+        Assert.assertEquals(currentTotalValue, expectedTotalValue,
+                "Sums don't match");
+        Assert.assertEquals(Double.parseDouble(balances.getFirst()) - Double.parseDouble(transferAmount),
+                Double.parseDouble(currentBalances.getFirst()),
+                "wrong amount extracted from account");
+        Assert.assertEquals(Double.parseDouble(newAccountBalance) + Double.parseDouble(transferAmount),
+                Double.parseDouble(newCurrentAccountBalance),
+                "wrong amount extracted from account");
+
+
+        /* ************************************ Bill Pay ************************************ */
+        //Transaction details
+        accounts = overviewPage.getAccountList();
+        balances = overviewPage.getBalanceList().stream().map(e -> e.replace("$","")).toList();
+
+        String recipientAccount = "32561";
+        String billAmount = "125.5";
+        String account = accounts.getFirst();
+        String balance = balances.getFirst();
+
+        makePayment(overviewPage, driver, configLoader, recipientAccount, balance, billAmount, account);
+
+        //Check if the pay was successful
+        String currentBalance = overviewPage.getBalanceList().getFirst().replace("$","");
+        Assert.assertEquals(Double.parseDouble(currentBalance),
+                Double.parseDouble(balance) - Double.parseDouble(billAmount),
+                "Balance inconsistent");
+
+
+
+        balance = overviewPage.getBalanceList().getFirst();
+
+        verifyTransactions(overviewPage, driver, configLoader, account, balance, transferAmount, billAmount);
+
+
+        /* ************************************ Find Transactions ************************************ */
+
+        FindTransactionsPageActions findTransactionsPage = new FindTransactionsPageActions(driver);
+
+        overviewPage.clickFindTransactionLink();
+
+        //Check to page title
+        System.out.println(getPageTitle(driver));
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Find Transactions"),
                 "Overview page not loaded");
 
-        //Check page content
-        String mainAccountID = overviewPage.getAccount1ID();
-        String totalFunds = overviewPage.getAccount1Balance();
-        List<String> accountsList = overviewPage.getAccountsList();
 
+        findTransactionsPage.selectAccount(account);
+        findTransactionsPage.enterAmountToLookFor(billAmount);
+        findTransactionsPage.clickFindByAmountFindTransactionsButton();
 
-        /* ********************************************************************************************************** */
-        //Navigate to Open New Account
-        overviewPage.clickOpenNewAccountLink();
+        //Check account transactions
+        List<String> transactions = findTransactionsPage.getTableRowsToList();
+        boolean containsBillPayment = false;
 
-        //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Open Account"),
-                "Open Account page not loaded");
-
-        //Check page content
-        System.out.println("Number of 'Account' selected is " + openNewAccountPage.getSelectedAccount().size());
-        Assert.assertEquals(openNewAccountPage.getSelectedAccount().getFirst(),
-                mainAccountID,
-                "Wrong account number");
-
-
-        List<String> openNewAccountAccounts = openNewAccountPage.getAccountsList();
-        for (String account : openNewAccountAccounts) {
-            Assert.assertTrue(accountsList.contains(account), "Account does not belong to user");
+        for (String transaction : transactions) {
+            if (transaction.contains("Bill Payment to " + configLoader.getProperty("firstName") + " " + configLoader.getProperty("lastName") + " $" + billAmount)){
+                containsBillPayment = true;
+            }
         }
 
+        System.out.println("Bill Payment found - " + containsBillPayment);
+        Assert.assertTrue(containsBillPayment,
+                "Bill Payment not found");
+
+        findTransactionsPage.clickAccountsOverviewLink();
+
+        //Check to page title
+        System.out.println(getPageTitle(driver));
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Accounts Overview"),
+                "Overview page not loaded");
 
 
-        /* ********************************************************************************************************** */
-        //Navigate to Transfer Founds
-        openNewAccountPage.clickTransferFundsLink();
 
-        //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Transfer Funds"),
-                "Transfer Funds page not loaded");
+        /* ************************************ Update Contact Info ************************************ */
 
-        //Check page content
-        Assert.assertEquals(transferFundsPage.getSelectedFromAccount().size(), 1);
-        Assert.assertEquals(transferFundsPage.getSelectedToAccount().size(), 1);
-        Assert.assertEquals(mainAccountID, transferFundsPage.getSelectedFromAccount().getFirst());
-        Assert.assertEquals(mainAccountID, transferFundsPage.getSelectedToAccount().getFirst());
+        //New info
+        String newAddress = configLoader.getProperty("newAddress");
+        String newCity = configLoader.getProperty("newCity");
+        String newState = configLoader.getProperty("newState");
+
+        //Update personal info
+        updatePersonalInfo(overviewPage, driver, newAddress, newCity, newState);
 
 
-        /* ********************************************************************************************************** */
-        //Navigate to Bill Pay
-        transferFundsPage.clickBillPayLink();
+        /* ************************************ Request Loan ************************************ */
 
-        //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Bill Pay"),
-                "Bill Pay page not loaded");
+        overviewPage.clickRequestLoanLink();
 
-        //Check page content
-        Assert.assertEquals(billPayPage.getSelectFromAccount().size(),
-                1,
-                "Too many options selected");
-        Assert.assertEquals(billPayPage.getSelectFromAccount().getFirst(),
-                mainAccountID,
-                "Account mismatch");
-        //I could check that the dropdown from account options are the same as the list of accounts from the overview page
+        //Check to page title
+        System.out.println(getPageTitle(driver));
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Loan Request"),
+                "Loan Request page not loaded");
 
+        requestLoanPage.enterLoanAmount("100");
+        requestLoanPage.enterDownPayment("50");
+        requestLoanPage.selectFromAccount(account);
+        requestLoanPage.clickApplyNowButton();
 
-        /* ********************************************************************************************************** */
-        //Navigate to Find Transaction
-        billPayPage.clickFindTransactionLink();
+        System.out.println(requestLoanPage.getRequestResultMessage());
+        Assert.assertEquals(requestLoanPage.getRequestResultMessage(),
+                "Loan Request Processed",
+                "An error occurred while requesting a loan");
 
-        //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Find Transactions"),
-                "Find Transaction page not loaded");
+        requestLoanPage.clickAccountsOverviewLink();
 
-        //Check page content
-//        List<String> findTransactionAccounts = requestLoanPage.getAccounts();
-//        for(String account : findTransactionAccounts){
-//            Assert.assertTrue(overviewAccounts.contains(account),"Account does not belong to user");
-//    }
+        //Check to page title
+        System.out.println(getPageTitle(driver));
+        Assert.assertTrue(getPageTitle(driver).equalsIgnoreCase("ParaBank | Accounts Overview"),
+                "Overview page not loaded");
 
 
-        /* ********************************************************************************************************** */
-        //Navigate to Update Contact Info
-        findTransactionsPage.clickUpdateContactInfoLink();
+        /* ************************************ Log Out ************************************ */
+        //Log Out
+        overviewPage.clickLogOutLink();
 
-        //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Update Profile"),
-                "Update Profile page not loaded");
+        //Check if log out was successful
+        String expectedText = "atm services";
+        String ATMServicesText = homePage.getATMServicesText();
 
-        //Check page content
-        Assert.assertEquals("","s","");
-        Assert.assertEquals("","s","");
-        Assert.assertEquals("","s","");
-        Assert.assertEquals("","s","");
-        Assert.assertEquals("","s","");
-        Assert.assertEquals("","s","");
-        Assert.assertEquals("","s","");
+        Assert.assertEquals(ATMServicesText.toLowerCase(), expectedText.toLowerCase());
 
-
-        /* ********************************************************************************************************** */
-        //Navigate to Request loan
-        updateInfoPage.clickRequestLoanLink();
-
-        //Check the page title
-        System.out.println(getPageTitle());
-        Assert.assertTrue(getPageTitle().equalsIgnoreCase("ParaBank | Request Loan"),
-                "Request Loan page not loaded");
-
-        //Check page content
-//        List<String> requestLoanAccounts = requestLoanPage.getAccounts();
-//        for(String account : requestLoanAccounts){
-//            Assert.assertTrue(overviewAccounts.contains(account),"Account does not belong to user");
-//        }
 
     }
 }

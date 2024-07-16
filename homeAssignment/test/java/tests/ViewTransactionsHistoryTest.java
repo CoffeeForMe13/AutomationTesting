@@ -54,7 +54,7 @@ public class ViewTransactionsHistoryTest extends BaseTestFunctionality {
         transferFunds(overviewPage, driver, transferAmount, account1ID, newAccount);
 
         // Get balance before bill payment
-        String initialBalance = overviewPage.getBalanceList().getFirst();
+        String initialBalance = overviewPage.getBalanceList().getFirst().replace("$","");
 
         //Transaction details
         String recipientAccount = "32561";
